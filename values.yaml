@@ -1,0 +1,34 @@
+image:
+  repository: registry1.dso.mil/ironbank/jetstack/cert-manager-controller
+  tag: "v1.12.4"
+
+cainjector:
+  image:
+    repository: registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector
+    tag: "v1.12.4"
+
+webhook:
+  image:
+    repository: registry1.dso.mil/ironbank/jetstack/cert-manager-webhook
+    tag: "v1.12.4"
+
+startupapicheck:
+  image:
+    repository: registry1.dso.mil/ironbank/jetstack/cert-manager-ctl
+    tag: "v1.12.4"
+
+installCRDs: true
+
+# delete secret if certificate is deleted
+extraArgs:
+  - --enable-certificate-owner-ref=true
+
+securityContext:
+  runAsNonRoot: true
+
+# IF YOU WANT TO DEPLOY CERT-MANAGER *BEFORE* DUBBD, YOU NEED TO:
+#  1. deploy with the optional deploy-smon-crd component
+#  2. comment out prometheus.servicemonitor.enabled and create one after DUBBD has deployed
+prometheus:
+  servicemonitor:
+    enabled: true

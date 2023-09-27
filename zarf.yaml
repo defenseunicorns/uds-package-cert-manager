@@ -1,0 +1,76 @@
+kind: ZarfPackageConfig
+metadata:
+  name: cert-manager
+  description: "Certificate manager for DUBBD"
+  # x-release-please-start-version
+  version: "0.9.1"
+  # x-release-please-end
+  url: https://github.com/cert-manager/cert-manager
+  # Big Bang / Iron Bank are only amd64
+  architecture: amd64
+
+variables:
+  - name: CERT_RESOURCES
+    description: "Path to a local manifest file for deploying custom cert-manager Issuers and Certificates"
+    default: deploy-custom-resources.yaml
+    prompt: false
+    type: file
+    autoIndent: true
+
+components:
+  - name: namespace-istio-injection
+    required: true
+    manifests:
+      - name: cert-manager-namespace
+        files:
+          - manifests/cert-manager-namespace.yaml
+
+  # In case cert-manager is deployed before DUBBD
+  - name: deploy-smon-crd
+    manifests:
+      - name: prometheus-smon-crd
+        files:
+          - manifests/smon-crd.yaml
+
+  - name: deploy-chart
+    required: true
+    charts:
+      - name: cert-manager
+        url: https://charts.jetstack.io
+        gitPath: jetstack/cert-manager
+        version: "v1.12.4"
+        namespace: cert-manager
+        releaseName: cert-manager
+        valuesFiles:
+          - values.yaml
+    images:
+      - "registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.12.4"
+      - "registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.12.4"
+      - "registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.12.4"
+      - "registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.12.4"
+
+  - name: deploy-custom-resources
+    manifests:
+      - name: cert-manager-custom-resources
+        files:
+          - cert-manager-resources.yaml
+    # In case cert-manager is deployed before DUBBD
+    actions:
+      onDeploy:
+        after:
+          - cmd: ./zarf tools kubectl get ns istio-system >/dev/null 2>&1 && echo true || echo false
+            mute: true
+            description: "Check if custom resources initiated creation of istio-system namespace"
+            setVariables:
+              - name: HAS_ISTIO_NS
+          - cmd: |
+              if [ "${ZARF_VAR_HAS_ISTIO_NS}" = "true" ]; then
+                ./zarf tools kubectl label ns istio-system --overwrite=true app.kubernetes.io/managed-by=Helm
+                ./zarf tools kubectl annotate ns istio-system meta.helm.sh/release-name=bigbang meta.helm.sh/release-namespace=bigbang
+                ./zarf tools kubectl label secret private-registry -n istio-system --overwrite=true app.kubernetes.io/managed-by=Helm
+                ./zarf tools kubectl annotate secret private-registry -n istio-system meta.helm.sh/release-name=bigbang meta.helm.sh/release-namespace=bigbang
+              else
+                 echo "No istio-system namespace yet"
+              fi
+            mute: true
+            description: "Add helm labels and annotations to istio-system for big bang helm release"

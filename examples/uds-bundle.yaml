@@ -1,0 +1,13 @@
+kind: UDSBundle
+metadata:
+  name: CERT_MANAGER_FOR_DUBBD_K3D
+  description: Building DUBBD with cert-manager for local k3d
+  version: 0.0.1
+
+zarf-packages:
+  - name: dubbd-k3d
+    repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
+    ref: "0.9.1"
+  - name: cert-manager
+    path: ../
+    ref: "0.9.1"
