@@ -25,7 +25,7 @@ We recommend you deploy cert-manager after DUBBD. If you want to deploy cert-man
 
 ## Deploy Create Custom Issuers and Certificates
 
-The optional `deploy-custom-resources` component will apply your Issuer/ClustIssuer/Certificates manifests. This component looks for a file passed to `###ZARF_VAR_CERT_RESOURCES###`. The default file it looks for in the **current directory** is `deploy-custom-resources.yaml`. You can change this by passing a different name to `cert_resources` in your `zarf-config.yaml` or by using `--set CERT_RESOURCES=<path to your file>` when running `zarf package deploy`.
+The optional `deploy-custom-resources` component will apply your Issuer/ClustIssuer/Certificates manifests. This component looks for a file passed to `###ZARF_VAR_CERT_RESOURCES###`. The default file it looks for in the **current directory** is `deploy-custom-resources.yaml`. You can change this by passing a different name to `cert_resources` in your `zarf-config.yaml` or by using `--set CERT_RESOURCES=<path to your file>` when running `zarf package deploy`. Also if you're using `uds-cli` to creat a bundle with cert-manager (see [examples/uds-bundle.yaml](/examples/uds-bundle.yaml)) you can create a `uds-config.yaml` to set the `cert_resources` var.
 
 _You can of course deploy your resource manually after the fact if you want. The benefit of using this optional component is zarf will then manage the clean up for you if the cert-manager package is removed._
 
