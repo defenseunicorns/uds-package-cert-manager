@@ -9,5 +9,5 @@ zarf-packages:
     repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
     ref: "0.9.1"
   - name: cert-manager
-    path: ../
+    repository: ghcr.io/defenseunicorns/packages/cert-manager
     ref: "0.9.1"
