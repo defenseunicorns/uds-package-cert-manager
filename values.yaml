@@ -17,6 +17,10 @@ startupapicheck:
     repository: registry1.dso.mil/ironbank/jetstack/cert-manager-ctl
     tag: "v1.12.4"
 
+startupapicheck:
+  podLabels:
+    sidecar.istio.io/inject: false
+
 installCRDs: true
 
 # delete secret if certificate is deleted
