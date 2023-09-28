@@ -17,7 +17,7 @@ The Cert-Manager package installs the controller, webhook, and cainjector resour
 
 You can set cert-manager values via `values.yaml`. It's important to keep `installCRDs: true`, unless you want to manually install them yourself via `kubectl` after the fact.
 
-You can find a list of configurable values at [artifcathub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
+You can find a list of configurable values at [artifacthub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
 
 ## Order of Operations
 
