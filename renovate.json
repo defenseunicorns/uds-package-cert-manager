@@ -68,7 +68,8 @@
       "commitMessageTopic": "Docker image {{depName}}",
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "enabled": true,
-      "separateMinorPatch": true
+      "separateMinorPatch": true,
+      "groupName": "OCI packages"
     },
     {
       "datasources": ["docker"],
