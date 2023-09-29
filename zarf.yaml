@@ -46,13 +46,13 @@ components:
           - values.yaml
     images:
       # renovate: datasource=docker versioning=semver
-      - "registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.12.4"
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.12.4
       # renovate: datasource=docker versioning=semver
-      - "registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.12.4"
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.12.4
       # renovate: datasource=docker versioning=semver
-      - "registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.12.4"
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.12.4
       # renovate: datasource=docker versioning=semver
-      - "registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.12.4"
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.12.4
 
   - name: deploy-custom-resources
     manifests:
