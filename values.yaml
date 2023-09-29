@@ -1,6 +1,6 @@
 image:
   repository: registry1.dso.mil/ironbank/jetstack/cert-manager-controller
-  tag: "v1.12.4"
+  tag: "v1.13.1"
 
 cainjector:
   image:
