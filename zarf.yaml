@@ -46,7 +46,7 @@ components:
           - values.yaml
     images:
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.12.4
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.13.1
       # renovate: datasource=docker versioning=semver
       - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.13.1
       # renovate: datasource=docker versioning=semver
