@@ -10,7 +10,7 @@ cainjector:
 webhook:
   image:
     repository: registry1.dso.mil/ironbank/jetstack/cert-manager-webhook
-    tag: "v1.12.4"
+    tag: "v1.13.1"
 
 startupapicheck:
   image:
