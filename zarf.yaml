@@ -38,8 +38,8 @@ components:
       # renovate: datasource=helm
       - name: cert-manager
         url: https://charts.jetstack.io
-        gitPath: jetstack/cert-manager
         version: "v1.12.4"
+        gitPath: jetstack/cert-manager
         namespace: cert-manager
         releaseName: cert-manager
         valuesFiles:
