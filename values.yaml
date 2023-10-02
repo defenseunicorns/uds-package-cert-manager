@@ -16,10 +16,8 @@ startupapicheck:
   image:
     repository: registry1.dso.mil/ironbank/jetstack/cert-manager-ctl
     tag: "v1.13.1"
-
-# startupapicheck:
-#   podLabels:
-#     sidecar.istio.io/inject: false
+  podLabels:
+    sidecar.istio.io/inject: false
 
 installCRDs: true
 
