@@ -35,7 +35,7 @@ _You can of course deploy your resource manually after the fact if you want. The
 
 ### Before DUBBD
 
-If you want to initiate Istio gateways with cert-manager created certificate secrets, vs patching Istio afterward, either manually or via `deploy-custom-manifests` create certificates. **One certificate secret needs to be named `admin-cert` (i.e. `secretName: admin-cert`) and the other `tenant-cert` (i.e. `secretName: tenant-cert`). This is a hack right now for getting around the fact that Big Bang does not directly expose `gateways.tls.credentialName`.** (i.e. [custom resources](examples/deploy-custom-resources.yaml#L42))
+If you want to initiate Istio gateways with cert-manager created certificate secrets, vs patching Istio afterward, either manually or via `deploy-custom-manifests` create certificates. **One certificate secret needs to be named `admin-cert` (i.e. `secretName: admin-cert`) and the other `tenant-cert` (i.e. `secretName: tenant-cert`). This is a hack right now for getting around the fact that Big Bang does not directly expose `gateways.tls.credentialName`.** (i.e. [custom resources](examples/deploy-custom-manifests.yaml#L42))
 
 ### After DUBBD (Recommended)
 
