@@ -10,4 +10,4 @@ zarf-packages:
     ref: "0.9.1"
   - name: cert-manager
     repository: ghcr.io/defenseunicorns/packages/cert-manager
-    ref: "0.9.1"
+    ref: "0.0.1"
