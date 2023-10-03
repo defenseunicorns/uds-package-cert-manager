@@ -28,9 +28,6 @@ extraArgs:
 securityContext:
   runAsNonRoot: true
 
-# IF YOU WANT TO DEPLOY CERT-MANAGER *BEFORE* DUBBD, YOU NEED TO:
-#  1. deploy with the optional deploy-smon-crd component
-#  2. comment out prometheus.servicemonitor.enabled and create one after DUBBD has deployed
 prometheus:
   servicemonitor:
     enabled: true

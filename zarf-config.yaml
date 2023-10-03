@@ -4,4 +4,5 @@ package:
   deploy:
     set:
       domain: bigbang.dev
-      cert_resources: examples/deploy-cert-resources.yaml
+      cert_manager_values: deploy-cert-manager-values.yaml
+      cert_manager_manifests: deploy-custom-cert-manager-manifests.yaml

@@ -10,9 +10,15 @@ metadata:
   architecture: amd64
 
 variables:
-  - name: CERT_RESOURCES
+  - name: CERT_MANAGER_VALUES
+    description: "Path to a local values file that includes configuration to be used at deploy time (does not support modifying images)"
+    default: deploy-cert-manager-values.yaml
+    prompt: false
+    type: file
+    autoIndent: true
+  - name: CERT_MANAGER_MANIFESTS
     description: "Path to a local manifest file for deploying custom cert-manager Issuers and Certificates"
-    default: deploy-custom-resources.yaml
+    default: deploy-custom-cert-manager-manifests.yaml
     prompt: false
     type: file
     autoIndent: true
@@ -24,13 +30,28 @@ components:
       - name: cert-manager-namespace
         files:
           - manifests/cert-manager-namespace.yaml
+    actions:
+      onDeploy:
+        before:
+          - cmd: |
+              ./zarf tools kubectl label ns -l app.kubernetes.io/part-of=uds-package-cert-manager zarf.dev/agent-
+            description: "Remove Zarf ignore namespace labels before deploying"
 
-  # In case cert-manager is deployed before DUBBD
-  - name: deploy-smon-crd
-    manifests:
-      - name: prometheus-smon-crd
-        files:
-          - manifests/smon-crd.yaml
+  - name: set-cert-manager-values
+    required: true
+    files:
+      - source: deploy-cert-manager-values.yaml
+        target: deploy-cert-manager-values.yaml
+    actions:
+      onDeploy:
+        after:
+          - cmd: "cat ${ZARF_VAR_CERT_MANAGER_VALUES}"
+            description: "Read deploy-cert-manager-values.yaml file into values"
+            mute: true
+            setVariables:
+              - name: CERT_MANAGER_VALUES
+                sensitive: true
+                autoIndent: true
 
   - name: deploy-chart
     required: true
@@ -43,7 +64,9 @@ components:
         namespace: cert-manager
         releaseName: cert-manager
         valuesFiles:
-          - values.yaml
+          - values/cert-manager-values.yaml
+            # user given values file goes last so helm gives it precedence over defaults
+          - values/deploy-cert-manager-values.yaml
     images:
       # renovate: datasource=docker versioning=semver
       - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.13.1
@@ -54,11 +77,11 @@ components:
       # renovate: datasource=docker versioning=semver
       - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.13.1
 
-  - name: deploy-custom-resources
+  - name: deploy-custom-manifests
     manifests:
-      - name: cert-manager-custom-resources
+      - name: custom-cert-manager-manifests
         files:
-          - cert-manager-resources.yaml
+          - manifests/custom-cert-manager-manifests.yaml
     # In case cert-manager is deployed before DUBBD
     actions:
       onDeploy:
