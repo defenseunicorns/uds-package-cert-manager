@@ -1,10 +1,11 @@
----
 yaml-files:
   - "**/*.y*ml"
   - ".yamllint"
 
-ignores:
-  - ".github/**"
+# Ignore files from upstream
+ignore:
+  - "k3d/local/manifests/metallb/metallb-native.yaml"
+  - "**/.terraform/**"
 
 rules:
   anchors: enable
@@ -26,7 +27,7 @@ rules:
   indentation: enable
   key-duplicates: enable
   key-ordering: disable
-  line-length: enable
+  line-length: disable
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable
