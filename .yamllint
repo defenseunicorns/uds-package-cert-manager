@@ -3,6 +3,9 @@ yaml-files:
   - "**/*.y*ml"
   - ".yamllint"
 
+ignores:
+  - ".github/**"
+
 rules:
   anchors: enable
   braces: enable

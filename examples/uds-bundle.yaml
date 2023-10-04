@@ -13,7 +13,8 @@ zarf-packages:
   - name: dubbd-k3d
     repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
     ref: "0.9.1"
-  # clone https://github.com/TristanHoladay/cert-manager-pepr.git > npx pepr build > cd into /dist > rename package to pepr-for-dubbd > zarf package create > cp package into this dir
+  # clone https://github.com/TristanHoladay/cert-manager-pepr.git > npx pepr build >
+  # cd into /dist > rename package to pepr-for-dubbd > zarf package create > cp package into this dir
   # - name: pepr-for-dubbd
   #   path: .
   #   ref: "0.0.1"
