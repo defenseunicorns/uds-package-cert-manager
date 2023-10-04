@@ -34,12 +34,15 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: admin-cert
+  name: admin-cert-test
   namespace: istio-system
 spec:
   isCA: true
   commonName: bigbang-istio-gateway
-  secretName: admin-cert
+  secretName: admin-cert-test
+  secretTemplate:
+    labels:
+      app.kubernetes.io/istio-gateway-secret: admin
   privateKey:
     algorithm: RSA
     size: 4096
@@ -51,12 +54,15 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: tenant-cert
+  name: tenant-cert-test
   namespace: istio-system
 spec:
   isCA: true
   commonName: bigbang-istio-gateway
-  secretName: tenant-cert
+  secretName: tenant-cert-test
+  secretTemplate:
+    labels:
+      app.kubernetes.io/istio-gateway-secret: tenant
   privateKey:
     algorithm: RSA
     size: 4096
