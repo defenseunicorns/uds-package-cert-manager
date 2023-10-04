@@ -39,7 +39,6 @@ jobs:
 
       - name: Create k3d cluster
         id: create-cluster
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
         uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
         with:
           cluster-action: create
@@ -62,7 +61,6 @@ jobs:
 
       - name: Teardown k3d cluster
         if: always()
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
         uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
         with:
           cluster-action: destroy
