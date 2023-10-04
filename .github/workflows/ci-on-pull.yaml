@@ -1,0 +1,21 @@
+name: CI CERT-MANAGER
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: Lint YAML files
+        run: yamllint . -c .yamllint --no-warnings
+  test-release:
+    needs: yaml-lint
+    if: needs.yaml-lint.result == 'success' || needs.yaml-lint.result == 'skipped'
+    uses: ./.github/workflows/cert-manager-on-k3d.yaml
+    secrets: inherit

@@ -1,0 +1,68 @@
+name: Test Cert-Manager Package
+
+on:
+  workflow_call:
+
+permissions:
+  id-token: write
+  contents: read
+
+vars:
+  working-dir: cert
+  timeout: 60
+
+jobs:
+  test-clean-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free GH runner space
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/create-zarf-package
+        with:
+          username: ${{ secrets.REGISTRY1_USERNAME }}
+          password: ${{ secrets.REGISTRY1_PASSWORD }}
+          working-dir: ${{ vars.working-dir }}
+          download-init-package: true
+          timeout-minutes: ${{ vars.timeout }}
+
+      - name: Create k3d cluster
+        id: create-cluster
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
+        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.3
+        with:
+          cluster-action: create
+          aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          aws-region: us-west-2
+
+      - name: Zarf init
+        run: zarf init -a amd64 --components=git-server --confirm
+
+      - name: Deploy Cert-Manager
+        run: zarf package deploy zarf-package-*.tar.zst --confirm
+        working-directory: ${{ vars.working-dir }}
+        timeout-minutes: ${{ vars.timeout }}
+
+      - name: Remove cert-manage
+        if: always()
+        run: zarf package remove zarf-package-*.tar.zst --confirm
+        working-directory: ${{ vars.working-dir }}
+        timeout-minutes: ${{ vars.timeout }}
+
+      - name: Teardown k3d cluster
+        if: always()
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
+        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.3
+        with:
+          cluster-action: destroy
