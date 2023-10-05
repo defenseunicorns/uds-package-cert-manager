@@ -33,9 +33,9 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY1_USERNAME }}
           password: ${{ secrets.REGISTRY1_PASSWORD }}
-          working-dir: ${{ env.working-dir }}
+          working-dir: cert
           download-init-package: true
-          timeout-minutes: ${{ env.timeout }}
+          timeout-minutes: 60
 
       - name: Create k3d cluster
         id: create-cluster
