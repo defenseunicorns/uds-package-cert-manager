@@ -7,10 +7,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  working-dir: cert
-  timeout: 60
-
 jobs:
   test-clean-install:
     runs-on: ubuntu-latest
@@ -33,9 +29,8 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY1_USERNAME }}
           password: ${{ secrets.REGISTRY1_PASSWORD }}
-          working-dir: cert
+          working-dir: .
           download-init-package: true
-          timeout-minutes: 60
 
       - name: Create k3d cluster
         id: create-cluster
@@ -50,14 +45,14 @@ jobs:
 
       - name: Deploy Cert-Manager
         run: zarf package deploy zarf-package-*.tar.zst --confirm
-        working-directory: ${{ env.working-dir }}
-        timeout-minutes: ${{ env.timeout }}
+        working-directory: .
+        timeout-minutes: 60
 
       - name: Remove cert-manage
         if: always()
         run: zarf package remove zarf-package-*.tar.zst --confirm
-        working-directory: ${{ env.working-dir }}
-        timeout-minutes: ${{ env.timeout }}
+        working-directory: .
+        timeout-minutes: 60
 
       - name: Teardown k3d cluster
         if: always()
