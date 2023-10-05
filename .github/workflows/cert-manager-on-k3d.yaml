@@ -44,7 +44,7 @@ jobs:
         run: zarf init -a amd64 --components=git-server --confirm
 
       - name: Deploy Cert-Manager
-        run: zarf package deploy zarf-package-*.tar.zst --confirm
+        run: zarf package deploy zarf-package-*.tar.zst --confirm --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml
         working-directory: .
         timeout-minutes: 60
 
