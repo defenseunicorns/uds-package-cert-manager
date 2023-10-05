@@ -7,10 +7,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  working-dir: cert
-  timeout: 60
-
 jobs:
   test-clean-install:
     runs-on: ubuntu-latest
@@ -33,14 +29,12 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY1_USERNAME }}
           password: ${{ secrets.REGISTRY1_PASSWORD }}
-          working-dir: ${{ env.working-dir }}
+          working-dir: .
           download-init-package: true
-          timeout-minutes: ${{ env.timeout }}
 
       - name: Create k3d cluster
         id: create-cluster
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
-        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
         with:
           cluster-action: create
           aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
@@ -50,19 +44,18 @@ jobs:
         run: zarf init -a amd64 --components=git-server --confirm
 
       - name: Deploy Cert-Manager
-        run: zarf package deploy zarf-package-*.tar.zst --confirm
-        working-directory: ${{ env.working-dir }}
-        timeout-minutes: ${{ env.timeout }}
+        run: zarf package deploy zarf-package-*.tar.zst --confirm --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml
+        working-directory: .
+        timeout-minutes: 60
 
-      - name: Remove cert-manage
+      - name: Remove cert-manager
         if: always()
         run: zarf package remove zarf-package-*.tar.zst --confirm
-        working-directory: ${{ env.working-dir }}
-        timeout-minutes: ${{ env.timeout }}
+        working-directory: .
+        timeout-minutes: 60
 
       - name: Teardown k3d cluster
         if: always()
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
-        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
         with:
           cluster-action: destroy
