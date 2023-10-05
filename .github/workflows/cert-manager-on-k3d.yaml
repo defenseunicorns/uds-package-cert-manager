@@ -34,7 +34,7 @@ jobs:
 
       - name: Create k3d cluster
         id: create-cluster
-        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
         with:
           cluster-action: create
           aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
@@ -48,7 +48,7 @@ jobs:
         working-directory: .
         timeout-minutes: 60
 
-      - name: Remove cert-manage
+      - name: Remove cert-manager
         if: always()
         run: zarf package remove zarf-package-*.tar.zst --confirm
         working-directory: .
@@ -56,6 +56,6 @@ jobs:
 
       - name: Teardown k3d cluster
         if: always()
-        uses: defenseunicorns/uds-aws-ci-k3d@v0.0.5
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
         with:
           cluster-action: destroy
