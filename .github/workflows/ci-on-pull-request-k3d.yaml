@@ -1,9 +1,16 @@
-name: CI CERT-MANAGER
+name: CI k3d
 
 on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - ".gitignore"
+      - "LICENSE"
+      - "**/*.md"
+      - "**/*.json"
+      - "**/*.png"
+      - "**/*.svg"
 
 jobs:
   yaml-lint:
@@ -17,5 +24,7 @@ jobs:
   test-release:
     needs: yaml-lint
     if: needs.yaml-lint.result == 'success' || needs.yaml-lint.result == 'skipped'
-    uses: ./.github/workflows/cert-manager-on-k3d.yaml
+    uses: ./.github/workflows/test-k3d-package.yaml
+    with:
+      working_dir: .
     secrets: inherit
