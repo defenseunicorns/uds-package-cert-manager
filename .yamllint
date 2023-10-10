@@ -4,7 +4,6 @@ yaml-files:
 
 # Ignore files from upstream
 ignore:
-  - "k3d/local/manifests/metallb/metallb-native.yaml"
   - "**/.terraform/**"
 
 rules:
