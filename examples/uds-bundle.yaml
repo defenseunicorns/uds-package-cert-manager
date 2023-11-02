@@ -2,7 +2,7 @@ kind: UDSBundle
 metadata:
   name: CERT_MANAGER_FOR_DUBBD_K3D
   description: Building DUBBD with cert-manager for local k3d
-  version: 0.0.1   # x-release-please-version
+  version: 0.1.0   # x-release-please-version
 
 zarf-packages:
   - name: init
@@ -20,7 +20,7 @@ zarf-packages:
   #   ref: "0.0.1"
   - name: cert-manager
     repository: ghcr.io/defenseunicorns/packages/cert-manager
-    ref: "0.0.1"   # x-release-please-version
+    ref: "0.1.0"   # x-release-please-version
     optional-components:
       - deploy-custom-manifests
   - name: external-dns
