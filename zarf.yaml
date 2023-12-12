@@ -69,13 +69,13 @@ components:
           - values/deploy-cert-manager-values.yaml
     images:
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.13.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.13.3
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.13.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.13.3
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.13.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.13.3
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.13.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.13.3
 
   - name: deploy-custom-manifests
     manifests:
