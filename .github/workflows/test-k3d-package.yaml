@@ -31,8 +31,8 @@ jobs:
 
       - uses: ./.github/actions/create-zarf-package
         with:
-          username: ${{ secrets.REGISTRY1_USERNAME }}
-          password: ${{ secrets.REGISTRY1_PASSWORD }}
+          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           working-dir: ${{ inputs.working_dir }}
           download-init-package: true
           timeout-minutes: 60
