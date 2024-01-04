@@ -15,6 +15,6 @@ packages:
     ref: "0.16.0"
   - name: cert-manager
     repository: ghcr.io/defenseunicorns/packages/cert-manager
-    ref: "0.0.1"
+    ref: "0.1.0"
     optional-components:
       - deploy-custom-manifests
