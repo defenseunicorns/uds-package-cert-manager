@@ -3,6 +3,5 @@ package:
     max_package_size: "1000000000"
   deploy:
     set:
-      domain: bigbang.dev
       cert_manager_values: deploy-cert-manager-values.yaml
       cert_manager_manifests: deploy-custom-cert-manager-manifests.yaml
