@@ -66,7 +66,7 @@ components:
         namespace: cert-manager
         releaseName: cert-manager
         valuesFiles:
-          - values/cert-manager-values.yaml
+          - values/registry1-values.yaml
             # user given values file goes last so helm gives it precedence over defaults
           - values/deploy-cert-manager-values.yaml
     images:
@@ -92,7 +92,7 @@ components:
         namespace: cert-manager
         releaseName: cert-manager
         valuesFiles:
-          - values/cert-manager-values.yaml
+          - values/upstream-values.yaml
             # user given values file goes last so helm gives it precedence over defaults
           - values/deploy-cert-manager-values.yaml
     images:
