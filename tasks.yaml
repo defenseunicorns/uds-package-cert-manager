@@ -1,0 +1,16 @@
+includes:
+  - create: ./tasks/create.yaml
+  - publish: ./tasks/publish.yaml
+
+tasks:
+  - name: create-pkg-flavor
+    actions:
+      - task: create:cert-manager-pkg-flavor
+        variables: 
+          - name: FLAVOR
+
+  - name: publish-pkg-flavor
+    actions:
+      - tasks: publish:cert-manager-pkg-flavor
+        variables: 
+          - name: FLAVOR

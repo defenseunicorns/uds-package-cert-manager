@@ -13,7 +13,7 @@ permissions:
   packages: write
 
 jobs:
-  publish-package:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - name: Free GH runner space
@@ -29,12 +29,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create Package
-        uses: ./.github/actions/create-zarf-package
-        with:
-          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          working-dir: ${{ inputs.working_dir }}
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -43,10 +40,25 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish Zarf Package
-        run: zarf package publish zarf-package-*.tar.zst oci://ghcr.io/defenseunicorns/packages
-        working-directory: ${{ inputs.working_dir }}
-        timeout-minutes: 60
+  create-package:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+    steps:
+      - name: Create Package Flavors
+        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+
+  publish-package:
+    runs-on: ubuntu-latest
+    needs: create-package
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+    steps:
+      - name: Publish Zarf Package Flavor
+        run: uds run publish-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
 
       - name: Publish Zarf Skeleton
         run: zarf package publish . oci://ghcr.io/defenseunicorns/packages
