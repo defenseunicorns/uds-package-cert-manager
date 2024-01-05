@@ -1,28 +1,20 @@
 kind: UDSBundle
 metadata:
   name: CERT_MANAGER_FOR_DUBBD_K3D
-  description: Building DUBBD with cert-manager for local k3d
-  version: 0.1.0   # x-release-please-version
+  description: Building DUBBD with Cert-Manager for local k3d
+  version: 0.0.1
 
-zarf-packages:
+packages:
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.29.1
+    ref: v0.32.1
     optional-components:
       - git-server
   - name: dubbd-k3d
     repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
-    ref: "0.9.1"
-  # clone https://github.com/TristanHoladay/cert-manager-pepr.git > npx pepr build >
-  # cd into /dist > rename package to pepr-for-dubbd > zarf package create > cp package into this dir
-  # - name: pepr-for-dubbd
-  #   path: .
-  #   ref: "0.0.1"
+    ref: "0.16.0"
   - name: cert-manager
     repository: ghcr.io/defenseunicorns/packages/cert-manager
-    ref: "0.1.0"   # x-release-please-version
+    ref: "0.1.0"
     optional-components:
       - deploy-custom-manifests
-  - name: external-dns
-    repository: ghcr.io/defenseunicorns/packages/external-dns
-    ref: "0.1.0"
