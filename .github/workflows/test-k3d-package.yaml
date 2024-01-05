@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
-      - name: Create k3d cluster 
+      - name: Create k3d cluster
         run: uds run create-k3d-cluster
 
       - name: Create Pkg Flavor
