@@ -30,7 +30,7 @@ jobs:
 
   publish-zarf-package:
     needs: tag-new-version
-    if: ${{ needs.tag-new-version.outputs.release_created == 'true'}}
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true'}} || true
     uses: ./.github/workflows/publish-package.yaml
     with:
       working_dir: .
