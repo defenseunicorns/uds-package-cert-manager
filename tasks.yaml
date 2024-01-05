@@ -6,7 +6,7 @@ includes:
 tasks:
   - name: create-k3d-cluster
     actions:
-      - task: setup:k3d-cluster
+      - task: setup:create-k3d-cluster
 
   - name: create-pkg-flavor
     actions:

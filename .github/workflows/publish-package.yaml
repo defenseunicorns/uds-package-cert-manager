@@ -1,4 +1,4 @@
-name: Publish Package
+name: Publish
 
 # Will remove before merge and make it only tags
 on:
@@ -34,6 +34,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Registry1
+        uses: docker/login-action@v3
+        with:
+          registry: registry1.dso.mil
+          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Create Package Flavor
         run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
