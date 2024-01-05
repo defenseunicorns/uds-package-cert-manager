@@ -3,6 +3,10 @@ includes:
   - create: ./tasks/create.yaml
   - publish: ./tasks/publish.yaml
 
+variables:
+  - name: FLAVOR
+  - name: CERT_MANAGER_VALUES
+
 tasks:
   - name: create-k3d-cluster
     actions:
@@ -11,14 +15,10 @@ tasks:
   - name: create-pkg-flavor
     actions:
       - task: create:cert-manager-pkg-flavor
-        variables:
-          - name: FLAVOR
 
   - name: deploy-pkg-flavor
     actions:
       - task: deploy:cert-manager-pkg-flavor
-        variables:
-          - name: CERT_MANAGER_VALUES
 
   - name: remove-pkg-flavor
     actions:
@@ -26,4 +26,4 @@ tasks:
 
   - name: publish-pkg-flavor
     actions:
-      - tasks: publish:cert-manager-pkg-flavor
+      - task: publish:cert-manager-pkg-flavor

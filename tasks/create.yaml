@@ -3,4 +3,4 @@ tasks:
     description: "Create pkg flavor of Cert-Manager"
     actions:
       - cmd: mkdir build
-      - cmd: zarf package create . --flavor=${FLAVOR -o build/ --confirm
+      - cmd: zarf package create . --flavor=${FLAVOR --confirm
