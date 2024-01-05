@@ -1,12 +1,7 @@
 name: Publish Package
 
-# on:
-#   push:
-#     branches:
-#       - main
-
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -30,7 +25,7 @@ jobs:
 
   publish-zarf-package:
     needs: tag-new-version
-    if: ${{ needs.tag-new-version.outputs.release_created == 'true'}} || true
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true'}}
     uses: ./.github/workflows/publish-package.yaml
     with:
       working_dir: .
