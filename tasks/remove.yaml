@@ -1,0 +1,5 @@
+tasks:
+  - name: cert-manager-pkg-flavor
+    description: "Remove pkg flavor of Cert-Manager"
+    actions:
+      - cmd: zarf package remove zarf-package-*.zst --confirm

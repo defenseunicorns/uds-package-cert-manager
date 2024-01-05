@@ -13,25 +13,20 @@ permissions:
   packages: write
 
 jobs:
-  setup:
+  publish-package:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
     steps:
-      - name: Free GH runner space
-        run: |
-          df -h
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force
-          df -h
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Environment
         uses: ./.github/actions/setup
-
+        with:
+          install-k3d: false
+          download-init-package: false
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -40,23 +35,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-  create-package:
-    runs-on: ubuntu-latest
-    needs: setup
-    strategy:
-      matrix:
-        flavor: [upstream, registry1]
-    steps:
-      - name: Create Package Flavors
+      - name: Create Package Flavor
         run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
-
-  publish-package:
-    runs-on: ubuntu-latest
-    needs: create-package
-    strategy:
-      matrix:
-        flavor: [upstream, registry1]
-    steps:
+    
       - name: Publish Zarf Package Flavor
         run: uds run publish-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
 
