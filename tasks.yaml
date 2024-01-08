@@ -1,0 +1,31 @@
+includes:
+  - setup: ./tasks/setup.yaml
+  - create: ./tasks/create.yaml
+  - deploy: ./tasks/deploy.yaml
+  - remove: ./tasks/remove.yaml
+  - publish: ./tasks/publish.yaml
+
+variables:
+  - name: FLAVOR
+  - name: CERT_MANAGER_VALUES
+
+tasks:
+  - name: create-k3d-cluster
+    actions:
+      - task: setup:create-k3d-cluster
+
+  - name: create-pkg-flavor
+    actions:
+      - task: create:cert-manager-pkg-flavor
+
+  - name: deploy-pkg-flavor
+    actions:
+      - task: deploy:cert-manager-pkg-flavor
+
+  - name: remove-pkg-flavor
+    actions:
+      - task: remove:cert-manager-pkg-flavor
+
+  - name: publish-pkg-flavor
+    actions:
+      - task: publish:cert-manager-pkg-flavor

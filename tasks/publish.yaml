@@ -1,0 +1,5 @@
+tasks:
+  - name: cert-manager-pkg-flavor
+    description: "Publish pkg flavor of Cert-Manager"
+    actions:
+      - cmd: zarf package publish zarf-package-cert-manager-*.tar.zst oci://ghcr.io/defenseunicorns/packages

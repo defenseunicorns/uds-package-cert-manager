@@ -1,0 +1,34 @@
+# action.yml
+name: "Setup Environment"
+description: "UDS Environment Setup"
+
+inputs:
+  download-init-package:
+    description: "whether to download the zarf init package or not"
+    required: true
+  install-k3d:
+    description: "whether to install k3d or not"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Zarf
+      uses: defenseunicorns/setup-zarf@main
+      with:
+        # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
+        version: v0.32.1
+        download-init-package: ${{ inputs.download-init-package }}
+
+    - name: Install k3d
+      shell: bash
+      if: ${{ inputs.install-k3d == 'true' }}
+      run: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.6.0 bash
+
+    - name: Set up Homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Install UDS CLI
+      shell: bash
+      # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
+      run: brew install defenseunicorns/tap/uds@0.5.2

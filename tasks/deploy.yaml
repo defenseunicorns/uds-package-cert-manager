@@ -1,0 +1,5 @@
+tasks:
+  - name: cert-manager-pkg-flavor
+    description: "Deploy pkg flavor of Cert-Manager"
+    actions:
+      - cmd: zarf package deploy zarf-package-*.zst --set CERT_MANAGER_VALUES=${CERT_MANAGER_VALUES} --confirm

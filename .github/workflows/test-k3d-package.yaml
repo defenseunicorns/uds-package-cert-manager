@@ -14,58 +14,34 @@ permissions:
 jobs:
   test-clean-install:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
     steps:
-      - name: Free GH runner space
-        run: |
-          df -h
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force
-          df -h
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/create-zarf-package
+      - name: Setup Environment
+        uses: ./.github/actions/setup
         with:
+          install-k3d: true
+          download-init-package: true
+
+      - name: Login to Registry1
+        uses: docker/login-action@v3
+        with:
+          registry: registry1.dso.mil
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          working-dir: ${{ inputs.working_dir }}
-          download-init-package: true
-          timeout-minutes: 60
 
       - name: Create k3d cluster
-        id: create-cluster
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
-        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
-        with:
-          cluster-action: create
-          aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          aws-region: us-west-2
+        run: uds run create-k3d-cluster
 
-      - name: Zarf init
-        run: zarf init -a amd64 --components=git-server --confirm
+      - name: Create Pkg Flavor
+        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
 
-      - name: Deploy Package on k3d cluster
-        run: |
-          zarf package deploy zarf-package-*.tar.zst \
-            --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml \
-            --confirm
-        working-directory: ${{ inputs.working_dir }}
-        timeout-minutes: 60
+      - name: Deploy Pkg Flavor
+        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml
 
       - name: Remove Package from k3d cluster
-        if: always()
-        run: zarf package remove zarf-package-*.tar.zst --confirm
-        working-directory: ${{ inputs.working_dir }}
-        timeout-minutes: 60
-
-      - name: Teardown k3d cluster
-        if: always()
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
-        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
-        with:
-          cluster-action: destroy
+        run: uds run remove-pkg-flavor
