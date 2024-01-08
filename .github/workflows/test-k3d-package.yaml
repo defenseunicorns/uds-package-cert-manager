@@ -41,7 +41,7 @@ jobs:
         run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml
+        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml --set cert_manager_manifests=../../examples/deploy-custom-manifests.yaml
 
       - name: Remove Package from k3d cluster
         run: uds run remove-pkg-flavor
