@@ -24,12 +24,15 @@ variables:
     autoIndent: true
 
 components:
-  - name: namespace-istio-injection
+  - name: istio-configuration
     required: true
     manifests:
-      - name: cert-manager-namespace
+      - name: namespace-injection
         files:
-          - manifests/cert-manager-namespace.yaml
+          - manifests/namespace.yaml
+      - name: webhook-peer-auth-exception
+        files:
+          - manifests/peerauth.yaml
     actions:
       onDeploy:
         before:
