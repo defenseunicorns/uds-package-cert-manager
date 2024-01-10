@@ -40,7 +40,7 @@ components:
               ./zarf tools kubectl label ns -l app.kubernetes.io/part-of=uds-package-cert-manager zarf.dev/agent-
             description: "Remove Zarf ignore namespace labels before deploying"
 
-  - name: set-cert-manager-values
+  - name: set-values
     required: true
     files:
       - source: deploy-cert-manager-values.yaml
