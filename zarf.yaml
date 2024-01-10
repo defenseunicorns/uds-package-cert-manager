@@ -22,14 +22,20 @@ variables:
     prompt: false
     type: file
     autoIndent: true
+  - name: CONFIGURE_FOR_ISTIO
+    prompt: false
+    default: "false"
 
 components:
-  - name: namespace-istio-injection
+  - name: istio-configuration
     required: true
-    manifests:
-      - name: cert-manager-namespace
-        files:
-          - manifests/cert-manager-namespace.yaml
+    charts:
+      - name: istio-config
+        version: 0.1.0
+        localPath: charts/istio-config
+        namespace: cert-manager
+        valuesFiles:
+          - charts/istio-config/values.yaml
     actions:
       onDeploy:
         before:
@@ -37,7 +43,7 @@ components:
               ./zarf tools kubectl label ns -l app.kubernetes.io/part-of=uds-package-cert-manager zarf.dev/agent-
             description: "Remove Zarf ignore namespace labels before deploying"
 
-  - name: set-cert-manager-values
+  - name: set-values
     required: true
     files:
       - source: deploy-cert-manager-values.yaml
