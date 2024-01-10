@@ -8,8 +8,8 @@ The Cert-Manager package installs the controller, webhook, and cainjector resour
 
 ## Components
 
-- `namespace-istio-injection` -- creates cert-manager namespace with the `istio-injection: enabled` label.
-- `set-cert-manager-values` -- loads user given values to merge with (or override) default values.
+- `istio-configuration` -- creates cert-manager namespace with the `istio-injection: enabled` label and creates an Istio PeerAuthentication custom resource to allow `PERMISSIVE` traffic to the `cert-manager-webhook` on port `10250`
+- `set-values` -- loads user given values to merge with (or override) default values
 - `deploy-chart` - installs helm chart
 - `deploy-custom-manifests` (optional) -- applies your custom resource manifests (i.e. Issuers / Certificates)
 

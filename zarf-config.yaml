@@ -5,3 +5,4 @@ package:
     set:
       cert_manager_values: deploy-cert-manager-values.yaml
       cert_manager_manifests: deploy-custom-cert-manager-manifests.yaml
+      configure_for_istio: "false"

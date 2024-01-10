@@ -1,0 +1,16 @@
+{{- if .Values.istio.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: cert-manager-webhook-exception
+  namespace: cert-manager
+spec:
+  mtls:
+    mode: STRICT
+  portLevelMtls:
+    10250:
+      mode: PERMISSIVE
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webhook
+{{- end }}

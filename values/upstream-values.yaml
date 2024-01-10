@@ -1,7 +1,3 @@
-startupapicheck:
-  podLabels:
-    sidecar.istio.io/inject: "false"
-
 installCRDs: true
 
 # delete secret if certificate is deleted
@@ -14,3 +10,7 @@ securityContext:
 prometheus:
   servicemonitor:
     enabled: true
+
+startupapicheck:
+  podLabels:
+    sidecar.istio.io/inject: "false"
