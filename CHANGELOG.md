@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.1](https://github.com/defenseunicorns/uds-capability-cert-manager/compare/v0.1.0...v0.1.1) (2024-01-10)
+
+
+### Features
+
+* add zarf flavors for registry1 and upstream ([#29](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/29)) ([504b759](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/504b759b966f2757015eb6663f94fdccf0631f21))
+
+
+### Miscellaneous
+
+* **deps:** update dependency defenseunicorns/zarf to v0.32.1 ([#33](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/33)) ([f0b96f4](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/f0b96f41e5a5adf817d3b047f8e87be5d68b0669))
+* fix istio mTLS stopping traffic to webhook. ([dceab61](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/dceab61719acac8fdf9ea2999f896784cb485e6a))
+* update bundle example; remove domain from cert-manager zarf yaml ([#28](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/28)) ([6c6399d](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/6c6399d8ef566faad16515363e4eb5b86cc6808f))
+* update ironbank login for actions ([#27](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/27)) ([945053a](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/945053a329f430921d6038cb9297df6a0273b739))
+* update renovate with regex match for github-tags ([#31](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/31)) ([fe0aadf](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/fe0aadf05b0e59d86d6595b401d0a702c22160b1))
+
 ## [0.1.0](https://github.com/defenseunicorns/uds-capability-cert-manager/compare/v0.0.2...v0.1.0) (2023-11-02)
 
 
