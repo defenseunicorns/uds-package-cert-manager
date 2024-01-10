@@ -29,14 +29,14 @@ variables:
 components:
   - name: istio-configuration
     required: true
+    charts:
+      - name: istio-config
+        version: 0.1.0
+        localPath: charts/istio-config
+        namespace: cert-manager
     actions:
       onDeploy:
         before:
-          - cmd: |
-              if [ "ZARF_VAR_CONFIGURE_FOR_ISTIO" = true ]; then
-                zarf tools kubectl apply -f manifests/namespace.yaml
-                zarf tools kubectl apply -f manifests/peerauth.yaml
-              fi
           - cmd: |
               ./zarf tools kubectl label ns -l app.kubernetes.io/part-of=uds-package-cert-manager zarf.dev/agent-
             description: "Remove Zarf ignore namespace labels before deploying"
