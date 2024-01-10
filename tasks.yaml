@@ -8,6 +8,7 @@ includes:
 variables:
   - name: FLAVOR
   - name: CERT_MANAGER_VALUES
+  - name: CERT_MANAGER_MANIFESTS
 
 tasks:
   - name: create-k3d-cluster
