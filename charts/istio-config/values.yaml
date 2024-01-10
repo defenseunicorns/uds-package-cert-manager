@@ -1,2 +1,2 @@
-istio: 
+istio:
   enabled: "###ZARF_VAR_CONFIGURE_FOR_ISTIO###"
