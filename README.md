@@ -8,10 +8,23 @@ The Cert-Manager package installs the controller, webhook, and cainjector resour
 
 ## Components
 
-- `istio-configuration` -- creates cert-manager namespace with the `istio-injection: enabled` label and creates an Istio PeerAuthentication custom resource to allow `PERMISSIVE` traffic to the `cert-manager-webhook` on port `10250`
+- `istio-configuration` -- if `configure_for_istio` is `true`, then creates cert-manager namespace with the `istio-injection: enabled` label and creates an Istio PeerAuthentication custom resource to allow `PERMISSIVE` traffic to the `cert-manager-webhook` on port `10250`
 - `set-values` -- loads user given values to merge with (or override) default values
 - `deploy-chart` - installs helm chart
 - `deploy-custom-manifests` (optional) -- applies your custom resource manifests (i.e. Issuers / Certificates)
+
+## Flavors
+This package can be built as either an `upstream` or `registry1` flavor. These flavors instruct Zarf as to which images and values files to use.
+
+## Quick Start
+
+* Create a package flavor -- `zarf package create -f <flavor> --confirm`
+
+* Deploy package
+    * all defaults - `zarf package deploy zarf-package-*.zst`
+    * with custom values - `zarf package deploy zarf-package-*.zst --set cert_manager_values=<values-file>`
+    * with custom manifests - `zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set cert_manager_manifests=<manifests>`
+    * for use in cluster with istio - `zarf package deploy zarf-package-*.zst --set configure_for_istio=true`
 
 ## Controlling Values
 
@@ -19,7 +32,7 @@ You can set cert-manager values via `deploy-cert-manager-values.yaml`. This file
 
 You can find a list of configurable values at [artifacthub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
 
-**_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L72)) are brought into the package at create time._**
+^Warning: **_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L72)) are brought into the package at create time._**
 
 ## Order of Operations
 
