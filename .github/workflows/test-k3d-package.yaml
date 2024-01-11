@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  test-clean-install-no-core:
+  test-clean-install-no-istio:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,7 +46,7 @@ jobs:
       - name: Remove Package from k3d cluster
         run: uds run remove-pkg-flavor
 
-  test-clean-install-with-core:
+  test-clean-install-with-istio:
     runs-on: ubuntu-latest
     strategy:
       matrix:
