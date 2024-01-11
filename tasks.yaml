@@ -9,6 +9,7 @@ variables:
   - name: FLAVOR
   - name: CERT_MANAGER_VALUES
   - name: CERT_MANAGER_MANIFESTS
+  - name: CONFIGURE_FOR_ISTIO
 
 tasks:
   - name: setup-cluster-no-istio
