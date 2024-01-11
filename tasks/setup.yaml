@@ -13,4 +13,4 @@ tasks:
     actions:
       - description: "Deploy uds istio core bundle"
         # renovate: datasource=github-tags depName=defenseunicorns/uds/bundles/k3d-core versioning=semver
-        cmd: uds deploy oci://ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core-istio:0.7.2-arm64 --confirm
+        cmd: uds deploy oci://ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core-istio:0.7.2-amd64 --confirm
