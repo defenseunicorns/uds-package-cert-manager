@@ -8,10 +8,34 @@ The Cert-Manager package installs the controller, webhook, and cainjector resour
 
 ## Components
 
-- `istio-configuration` -- creates cert-manager namespace with the `istio-injection: enabled` label and creates an Istio PeerAuthentication custom resource to allow `PERMISSIVE` traffic to the `cert-manager-webhook` on port `10250`
+- `istio-configuration` -- if `configure_for_istio` is `true`, then creates cert-manager namespace with the `istio-injection: enabled` label and creates an Istio PeerAuthentication custom resource to allow `PERMISSIVE` traffic to the `cert-manager-webhook` on port `10250`
 - `set-values` -- loads user given values to merge with (or override) default values
 - `deploy-chart` - installs helm chart
 - `deploy-custom-manifests` (optional) -- applies your custom resource manifests (i.e. Issuers / Certificates)
+
+## Flavors
+This package can be built as either an `upstream` or `registry1` flavor. These flavors instruct Zarf as to which images and values files to use.
+
+## Variables
+
+| Variable | Description |
+|----------| ------------|
+| cert_manager_values | Control for adding or overriding values for either package flavor. |
+| cert_manager_manifests | Control for deploying custom Cert-Manager resources |
+| configure_for_istio | Control for enabling Cert-Manager to deploy within Istio service mesh |
+
+## Quick Start
+From within the repo:
+* Create a package flavor -- `zarf package create -f <flavor> --confirm`
+
+* Deploy package
+    * all defaults - `zarf package deploy zarf-package-*.zst`
+
+    * with custom values - `zarf package deploy zarf-package-*.zst --set cert_manager_values=<values-file>`
+
+    * with custom manifests - `zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set cert_manager_manifests=<manifests>`
+
+    * for use in cluster with istio - `zarf package deploy zarf-package-*.zst --set configure_for_istio=true`
 
 ## Controlling Values
 
@@ -19,11 +43,20 @@ You can set cert-manager values via `deploy-cert-manager-values.yaml`. This file
 
 You can find a list of configurable values at [artifacthub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
 
-**_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L72)) are brought into the package at create time._**
+> Warning: 
+> **_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L78)) are brought into the package at create time._**
 
 ## Order of Operations
 
 Due to dependency issues with deploying cert-manager before DUBBD, you'll need to deploy cert-manager **AFTER** DUBBD. [see here](./examples/uds-bundle.yaml)
+
+If you're not using Cert-Manager with DUBBD, you will need to use the values override mechanism (see Controlling Values above) to disable service monitor.
+
+```yaml
+prometheus:
+  servicemonitor:
+    enabled: false
+```
 
 ## Deploy Custom Issuers and Certificates
 
