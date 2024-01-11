@@ -11,9 +11,9 @@ variables:
   - name: CERT_MANAGER_MANIFESTS
 
 tasks:
-  - name: create-k3d-cluster
+  - name: setup-cluster
     actions:
-      - task: setup:create-k3d-cluster
+      - task: setup:uds-core
 
   - name: create-pkg-flavor
     actions:
