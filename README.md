@@ -32,11 +32,20 @@ You can set cert-manager values via `deploy-cert-manager-values.yaml`. This file
 
 You can find a list of configurable values at [artifacthub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
 
-^Warning: **_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L72)) are brought into the package at create time._**
+> Warning: 
+> **_Image values cannot be overridden. This is because a specific set of images ([see here](./zarf.yaml#L78)) are brought into the package at create time._**
 
 ## Order of Operations
 
 Due to dependency issues with deploying cert-manager before DUBBD, you'll need to deploy cert-manager **AFTER** DUBBD. [see here](./examples/uds-bundle.yaml)
+
+If you're not using Cert-Manager with DUBBD, you will need to use the values override mechanism (see Controlling Values above) to disable service monitor.
+
+```yaml
+prometheus:
+  servicemonitor:
+    enabled: false
+```
 
 ## Deploy Custom Issuers and Certificates
 
