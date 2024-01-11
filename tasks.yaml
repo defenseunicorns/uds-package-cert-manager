@@ -11,9 +11,13 @@ variables:
   - name: CERT_MANAGER_MANIFESTS
 
 tasks:
-  - name: setup-cluster
+  - name: setup-cluster-no-istio
     actions:
-      - task: setup:uds-core
+      - task: setup:k3d-no-istio
+
+  - name: setup-cluster-istio
+    actions:
+      - task: setup:core-istio
 
   - name: create-pkg-flavor
     actions:

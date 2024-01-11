@@ -1,6 +1,16 @@
 tasks:
-  - name: uds-core
+  - name: k3d-no-istio
     actions:
-      - description: "Deploy uds-core bundle"
+      - description: "Create the k3d cluster"
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-k3d versioning=semver
+        cmd: "zarf package deploy oci://defenseunicorns/uds-k3d:0.1.12-multi --confirm"
+
+      - description: "Initialize the cluster with Zarf"
+        # renovate: datasource=github-tags depName=defenseunicorns/init versioning=semver
+        cmd: "zarf package deploy oci://defenseunicorns/init:v0.31.4-${UDS_ARCH} --confirm --components=git-server"
+
+  - name: core-istio
+    actions:
+      - description: "Deploy uds istio core bundle"
         # renovate: datasource=github-tags depName=defenseunicorns/uds/bundles/k3d-core versioning=semver
-        cmd: uds deploy oci://ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core:0.7.1-amd64 --confirm
+        cmd: uds deploy oci://ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core-istio:0.7.2-arm64 --confirm
