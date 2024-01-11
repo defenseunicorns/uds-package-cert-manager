@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2](https://github.com/defenseunicorns/uds-capability-cert-manager/compare/v0.1.1...v0.1.2) (2024-01-11)
+
+
+### Miscellaneous
+
+* **deps:** update oci packages to v1.13.3 (patch) ([#32](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/32)) ([608c775](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/608c7759d0769f35943809ea4594fbf62e2e0fed))
+* Refactor CI ([#37](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/37)) ([fe5f979](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/fe5f9796c8728c623958fd46850028827ae05657))
+* updating readme ([#38](https://github.com/defenseunicorns/uds-capability-cert-manager/issues/38)) ([fe1b02f](https://github.com/defenseunicorns/uds-capability-cert-manager/commit/fe1b02fdb6e60f85592413c6b657477ee3b9076e))
+
 ## [0.1.1](https://github.com/defenseunicorns/uds-capability-cert-manager/compare/v0.1.0...v0.1.1) (2024-01-10)
 
 
