@@ -16,14 +16,25 @@ The Cert-Manager package installs the controller, webhook, and cainjector resour
 ## Flavors
 This package can be built as either an `upstream` or `registry1` flavor. These flavors instruct Zarf as to which images and values files to use.
 
-## Quick Start
+## Variables
 
+| Variable | Description |
+|----------| ------------|
+| cert_manager_values | Control for adding or overriding values for either package flavor. |
+| cert_manager_manifests | Control for deploying custom Cert-Manager resources |
+| configure_for_istio | Control for enabling Cert-Manager to deploy within Istio service mesh |
+
+## Quick Start
+From within the repo:
 * Create a package flavor -- `zarf package create -f <flavor> --confirm`
 
 * Deploy package
     * all defaults - `zarf package deploy zarf-package-*.zst`
+
     * with custom values - `zarf package deploy zarf-package-*.zst --set cert_manager_values=<values-file>`
+
     * with custom manifests - `zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set cert_manager_manifests=<manifests>`
+
     * for use in cluster with istio - `zarf package deploy zarf-package-*.zst --set configure_for_istio=true`
 
 ## Controlling Values
