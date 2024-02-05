@@ -77,13 +77,13 @@ components:
           - values/deploy-cert-manager-values.yaml
     images:
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.13.3
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.13.3
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.13.3
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.13.3
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.14.1
 
   - name: deploy-chart
     required: true
@@ -103,13 +103,13 @@ components:
           - values/deploy-cert-manager-values.yaml
     images:
       # renovate: datasource=docker versioning=semver
-      - quay.io/jetstack/cert-manager-cainjector:v1.13.3
+      - quay.io/jetstack/cert-manager-cainjector:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - quay.io/jetstack/cert-manager-webhook:v1.13.3
+      - quay.io/jetstack/cert-manager-webhook:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - quay.io/jetstack/cert-manager-controller:v1.13.3
+      - quay.io/jetstack/cert-manager-controller:v1.14.1
       # renovate: datasource=docker versioning=semver
-      - quay.io/jetstack/cert-manager-ctl:v1.13.3
+      - quay.io/jetstack/cert-manager-ctl:v1.14.1
 
   - name: deploy-custom-manifests
     manifests:
