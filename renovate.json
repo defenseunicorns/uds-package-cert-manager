@@ -103,7 +103,7 @@
   ],
     "packageRules": [
     {
-      "datasources": ["docker", "helm"],
+      "datasources": ["docker"],
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "enabled": true,
