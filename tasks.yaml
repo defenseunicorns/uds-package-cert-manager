@@ -13,13 +13,13 @@ variables:
 
 tasks:
   - name: default
-    actions: 
+    actions:
       - task: setup:k3d-no-istio
       - task: create:package
       - task: deploy:package
         with:
           options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
-  
+
   - name: test-with-istio
     actions:
       - task: setup:core-istio
