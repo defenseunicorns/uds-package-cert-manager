@@ -21,7 +21,7 @@
       "matchPackageNames": ["quay.io/jetstack/cert-manager-cainjector",
       "quay.io/jetstack/cert-manager-webhook",
       "quay.io/jetstack/cert-manager-controller"],
-      "allowedVersions": "!/608111629/"
+      "allowedVersions": "!/[^v]/"
     }
   ]
 }
