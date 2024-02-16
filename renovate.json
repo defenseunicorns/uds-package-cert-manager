@@ -17,9 +17,7 @@
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "enabled": true,
       "separateMinorPatch": true,
-      "groupName": "Charts and Images"
-    },
-    {
+      "groupName": "Charts and Images",
       "matchPackageNames": ["quay.io/jetstack/cert-manager-cainjector",
       "quay.io/jetstack/cert-manager-webhook",
       "quay.io/jetstack/cert-manager-controller"],
