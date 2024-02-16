@@ -1,17 +1,34 @@
 includes:
   - setup: ./tasks/setup.yaml
+  - common-setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.2.0/tasks/setup.yaml
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
   - remove: ./tasks/remove.yaml
-  - publish: ./tasks/publish.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.2.0/tasks/publish.yaml
 
 variables:
   - name: FLAVOR
-  - name: CERT_MANAGER_VALUES
-  - name: CERT_MANAGER_MANIFESTS
+  - name: CUSTOM_VALUES
+  - name: CUSTOM_MANIFESTS
   - name: CONFIGURE_FOR_ISTIO
 
 tasks:
+  - name: default
+    actions:
+      - task: create:package
+      - task: setup:k3d-no-istio
+      - task: deploy:package
+        with:
+          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
+
+  - name: test-with-istio
+    actions:
+      - task: create:package
+      - task: setup:core-istio
+      - task: deploy:package
+        with:
+          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
+
   - name: setup-cluster-no-istio
     actions:
       - task: setup:k3d-no-istio
@@ -20,18 +37,31 @@ tasks:
     actions:
       - task: setup:core-istio
 
-  - name: create-pkg-flavor
+  - name: create-pkg
     actions:
-      - task: create:cert-manager-pkg-flavor
+      - task: create:package
+        with:
+          options: ${CREATE_OPTIONS}
 
-  - name: deploy-pkg-flavor
+  - name: deploy-pkg
     actions:
-      - task: deploy:cert-manager-pkg-flavor
+      - task: deploy:package
+        with:
+          options: ${DEPLOY_OPTIONS}
 
-  - name: remove-pkg-flavor
+  - name: remove-pkg
     actions:
-      - task: remove:cert-manager-pkg-flavor
+      - task: remove:package
 
-  - name: publish-pkg-flavor
+  - name: publish-pkg
     actions:
-      - task: publish:cert-manager-pkg-flavor
+      - task: publish:package
+
+  - name: registry-login
+    actions:
+      - task: common-setup:registry-login
+        with:
+          registry: ${REGISTRY}
+          registryUsername: ${REGISTRY_USERNAME}
+          registryPassword: ${REGISTRY_PASSWORD}
+          registryRetryInterval: ${REGISTRY_RETRY_INTERVAL}

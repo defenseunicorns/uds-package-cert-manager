@@ -8,13 +8,13 @@ metadata:
   url: https://github.com/cert-manager/cert-manager
 
 variables:
-  - name: CERT_MANAGER_VALUES
+  - name: CUSTOM_VALUES
     description: "Path to a local values file that includes configuration to be used at deploy time (does not support modifying images)"
     default: deploy-cert-manager-values.yaml
     prompt: false
     type: file
     autoIndent: true
-  - name: CERT_MANAGER_MANIFESTS
+  - name: CUSTOM_MANIFESTS
     description: "Path to a local manifest file for deploying custom cert-manager Issuers and Certificates"
     default: deploy-custom-cert-manager-manifests.yaml
     prompt: false
@@ -49,11 +49,11 @@ components:
     actions:
       onDeploy:
         after:
-          - cmd: "cat ${ZARF_VAR_CERT_MANAGER_VALUES}"
+          - cmd: "cat ${ZARF_VAR_CUSTOM_VALUES}"
             description: "Read deploy-cert-manager-values.yaml file into values"
             mute: true
             setVariables:
-              - name: CERT_MANAGER_VALUES
+              - name: CUSTOM_VALUES
                 sensitive: true
                 autoIndent: true
 

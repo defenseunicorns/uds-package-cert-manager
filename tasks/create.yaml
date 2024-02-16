@@ -1,5 +1,12 @@
+variables:
+  - name: FLAVOR
+    default: "upstream"
+
 tasks:
-  - name: cert-manager-pkg-flavor
+  - name: package
     description: "Create pkg flavor of Cert-Manager"
+    inputs:
+      options:
+        description: "For setting deploy time variables and flags"
     actions:
-      - cmd: zarf package create . --flavor=${FLAVOR} --confirm
+      - cmd: zarf package create --flavor=${FLAVOR} --confirm ${{ .inputs.options }}

@@ -28,23 +28,19 @@ jobs:
           download-init-package: true
 
       - name: Login to Registry1
-        uses: docker/login-action@v3
-        with:
-          registry: registry1.dso.mil
-          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
 
       - name: Setup Cluster
         run: uds run setup-cluster-no-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml --set CERT_MANAGER_MANIFESTS=./examples/deploy-custom-manifests.yaml
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg-flavor
+        run: uds run remove-pkg
 
   test-clean-install-with-istio:
     runs-on: ubuntu-latest
@@ -62,20 +58,16 @@ jobs:
           download-init-package: true
 
       - name: Login to Registry1
-        uses: docker/login-action@v3
-        with:
-          registry: registry1.dso.mil
-          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
 
       - name: Setup Cluster
         run: uds run setup-cluster-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml --set CERT_MANAGER_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true"
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg-flavor
+        run: uds run remove-pkg

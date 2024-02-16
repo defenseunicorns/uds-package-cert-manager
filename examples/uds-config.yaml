@@ -7,4 +7,4 @@ bundle:
           approved_registries: "127.0.0.1* | registry1.dso.mil | ghcr.io"
       cert-manager:
         set:
-          cert_manager_manifests: deploy-custom-manifests.yaml
+          custom_manifests: deploy-custom-manifests.yaml
