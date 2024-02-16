@@ -38,13 +38,13 @@ jobs:
         run: uds run setup-cluster-no-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml --set CERT_MANAGER_MANIFESTS=./examples/deploy-custom-manifests.yaml
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg-flavor
+        run: uds run remove-pkg
 
   test-clean-install-with-istio:
     runs-on: ubuntu-latest
@@ -72,10 +72,10 @@ jobs:
         run: uds run setup-cluster-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg-flavor --set CERT_MANAGER_VALUES=./.github/ci-values/values-override.yaml --set CERT_MANAGER_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true"
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg-flavor
+        run: uds run remove-pkg

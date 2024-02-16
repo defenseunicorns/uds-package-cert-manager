@@ -1,5 +1,8 @@
 tasks:
-  - name: cert-manager-pkg-flavor
+  - name: package
     description: "Deploy pkg flavor of Cert-Manager"
+    inputs:
+      options:
+        description: "For setting zarf vars"
     actions:
-      - cmd: zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set CERT_MANAGER_MANIFESTS=${CERT_MANAGER_MANIFESTS} --set CERT_MANAGER_VALUES=${CERT_MANAGER_VALUES} --set CONFIGURE_FOR_ISTIO=${CONFIGURE_FOR_ISTIO} --confirm
+      - cmd: zarf package deploy zarf-package-*.zst ${{ .inputs.options }} --confirm

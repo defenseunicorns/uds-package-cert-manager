@@ -20,8 +20,8 @@ This package can be built as either an `upstream` or `registry1` flavor. These f
 
 | Variable | Description |
 |----------| ------------|
-| cert_manager_values | Control for adding or overriding values for either package flavor. |
-| cert_manager_manifests | Control for deploying custom Cert-Manager resources |
+| custom_values | Control for adding or overriding values for either package flavor. |
+| custom_manifests | Control for deploying custom Cert-Manager resources |
 | configure_for_istio | Control for enabling Cert-Manager to deploy within Istio service mesh |
 
 ## Quick Start
@@ -31,15 +31,15 @@ From within the repo:
 * Deploy package
     * all defaults - `zarf package deploy zarf-package-*.zst`
 
-    * with custom values - `zarf package deploy zarf-package-*.zst --set cert_manager_values=<values-file>`
+    * with custom values - `zarf package deploy zarf-package-*.zst --set custom_values=<values-file>`
 
-    * with custom manifests - `zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set cert_manager_manifests=<manifests>`
+    * with custom manifests - `zarf package deploy zarf-package-*.zst --components=deploy-custom-manifests --set custom_manifests=<manifests>`
 
     * for use in cluster with istio - `zarf package deploy zarf-package-*.zst --set configure_for_istio=true`
 
 ## Controlling Values
 
-You can set cert-manager values via `deploy-cert-manager-values.yaml`. This file will get passed to the `CERT_MANAGER_VALUES` variable, which will populate a values file given to the `deploy-chart` component. This allows you to add to or override the default values found in [cert-manager-values.yaml](./values/cert-manager-values.yaml). It's important to keep `installCRDs: true`, unless you want to manually install them yourself via `kubectl`. _If you do want to install CRDs manually after package deploy, you will not want to deploy the optional `deploy-custom-manifests` component, because it will fail without the CRDs._
+You can set cert-manager values via `deploy-cert-manager-values.yaml`. This file will get passed to the `CUSTOM_VALUES` variable, which will populate a values file given to the `deploy-chart` component. This allows you to add to or override the default values found in [cert-manager-values.yaml](./values/cert-manager-values.yaml). It's important to keep `installCRDs: true`, unless you want to manually install them yourself via `kubectl`. _If you do want to install CRDs manually after package deploy, you will not want to deploy the optional `deploy-custom-manifests` component, because it will fail without the CRDs._
 
 You can find a list of configurable values at [artifacthub.io](https://artifacthub.io/packages/helm/cert-manager/cert-manager).
 
@@ -60,7 +60,7 @@ prometheus:
 
 ## Deploy Custom Issuers and Certificates
 
-The optional `deploy-custom-manifests` component will apply your Issuer/ClusterIssuer/Certificates manifests. This component looks for a file passed to `###ZARF_VAR_CERT_MANAGER_MANIFESTS###`. You can do this by setting `cert_manager_manifests` via zarf-config.yaml, or `--set CERT_MANAGER_MANIFESTS=<path to your file>` on package deploy, or uds-config.yaml if using uds-cli to bundle cert-manager.
+The optional `deploy-custom-manifests` component will apply your Issuer/ClusterIssuer/Certificates manifests. This component looks for a file passed to `###ZARF_VAR_CUSTOM_MANIFESTS###`. You can do this by setting `custom_manifests` via zarf-config.yaml, or `--set CUSTOM_MANIFESTS=<path to your file>` on package deploy, or uds-config.yaml if using uds-cli to bundle cert-manager.
 
 _You can of course deploy your resources manually after the fact if you want. The benefit of using this optional component is zarf will then manage the clean up for you if the cert-manager package is removed._
 
