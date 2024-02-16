@@ -16,7 +16,5 @@ spec:
       - direction: Egress
         podSelector:
           app.kubernetes.io/name: cainjector
-        remoteSelector:
-          app.kubernetes.io/name: webhook
-        port: 10250
+        remoteGenerated: KubeAPI
 {{- end }}
