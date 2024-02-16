@@ -5,7 +5,7 @@ yaml-files:
 # Ignore files from upstream
 ignore:
   - "**/.terraform/**"
-  - "charts/istio-config/templates/*"
+  - "charts/**/templates/*"
 
 rules:
   anchors: enable

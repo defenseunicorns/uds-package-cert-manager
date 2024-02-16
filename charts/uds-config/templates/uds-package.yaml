@@ -19,5 +19,4 @@ spec:
         remoteSelector:
           app.kubernetes.io/name: webhook
         port: 10250
-
 {{- end }}
