@@ -38,7 +38,7 @@ jobs:
         run: uds run setup-cluster-no-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --set create_options=""
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --set CREATE_OPTIONS=""
 
       - name: Deploy Pkg Flavor
         run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
@@ -72,7 +72,7 @@ jobs:
         run: uds run setup-cluster-istio
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --set create_options=""
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --set CREATE_OPTIONS=""
 
       - name: Deploy Pkg Flavor
         run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true"
