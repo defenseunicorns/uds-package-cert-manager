@@ -59,7 +59,7 @@ tasks:
 
   - name: registry-login
     actions:
-      - task: setup:registry-login
+      - task: common-setup:registry-login
         with:
           registry: ${REGISTRY}
           registryUsername: ${REGISTRY_USERNAME}

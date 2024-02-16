@@ -29,24 +29,16 @@ jobs:
           download-init-package: false
 
       - name: Login to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+        run: uds run registry-login --set REGISTRY=ghcr.io --set REGISTRY_USERNAME=dummy --set REGISTRY_PASSWORD=${{ secrets.GITHUB_TOKEN }} --set REGISTRY_RETRY_INTERVAL=90
 
       - name: Login to Registry1
-        uses: docker/login-action@v3
-        with:
-          registry: registry1.dso.mil
-          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
 
       - name: Create Package Flavor
-        run: uds run create-pkg-flavor --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Publish Zarf Package Flavor
-        run: uds run publish-pkg-flavor
+        run: uds run publish-pkg
 
       - name: Publish Zarf Skeleton
         run: zarf package publish . oci://ghcr.io/defenseunicorns/packages
