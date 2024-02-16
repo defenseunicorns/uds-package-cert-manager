@@ -62,6 +62,10 @@ components:
     only:
       flavor: registry1
     charts:
+      - name: uds-config
+        namespace: cert-manager
+        localPath: charts/uds-config
+        version: 0.1.0
       - name: cert-manager
         url: https://charts.jetstack.io
         version: v1.14.2
@@ -83,6 +87,10 @@ components:
     only:
       flavor: upstream
     charts:
+      - name: uds-config
+        namespace: cert-manager
+        localPath: charts/uds-config
+        version: 0.1.0
       - name: cert-manager
         url: https://charts.jetstack.io
         version: v1.14.2
