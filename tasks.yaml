@@ -3,7 +3,7 @@ includes:
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
   - remove: ./tasks/remove.yaml
-  - publish: ./tasks/publish.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/$TAG/tasks/publish.yaml
 
 variables:
   - name: FLAVOR
@@ -25,6 +25,8 @@ tasks:
       - task: setup:core-istio
       - task: create:package
       - task: deploy:package
+        with:
+          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
 
   - name: setup-cluster-no-istio
     actions:
