@@ -20,9 +20,9 @@
       "groupName": "Charts and Images"
     },
     {
-      "matchPackageNames": ["registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector",
-      "registry1.dso.mil/ironbank/jetstack/cert-manager-webhook",
-      "registry1.dso.mil/ironbank/jetstack/cert-manager-controller"],
+      "matchPackageNames": ["quay.io/jetstack/cert-manager-cainjector",
+      "quay.io/jetstack/cert-manager-webhook",
+      "quay.io/jetstack/cert-manager-controller"],
       "allowedVersions": "!/608111629/"
     }
   ]
