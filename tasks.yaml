@@ -1,5 +1,6 @@
 includes:
   - setup: ./tasks/setup.yaml
+  - common-setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/$TAG/tasks/setup.yaml
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
   - remove: ./tasks/remove.yaml
@@ -14,16 +15,16 @@ variables:
 tasks:
   - name: default
     actions:
-      - task: setup:k3d-no-istio
       - task: create:package
+      - task: setup:k3d-no-istio
       - task: deploy:package
         with:
           options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
 
   - name: test-with-istio
     actions:
-      - task: setup:core-istio
       - task: create:package
+      - task: setup:core-istio
       - task: deploy:package
         with:
           options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
@@ -55,3 +56,12 @@ tasks:
   - name: publish-pkg
     actions:
       - task: publish:package
+
+  - name: registry-login
+    actions:
+      - task: setup:registry-login
+        with:
+          registry: ${REGISTRY}
+          registryUsername: ${REGISTRY_USERNAME}
+          registryPassword: ${REGISTRY_PASSWORD}
+          registryRetryInterval: ${REGISTRY_RETRY_INTERVAL}
