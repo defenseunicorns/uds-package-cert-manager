@@ -27,7 +27,7 @@ tasks:
       - task: setup:core-istio
       - task: deploy:package
         with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
+          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml --set configure_for_istio=true"
 
   - name: setup-cluster-no-istio
     actions:

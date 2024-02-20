@@ -1,0 +1,20 @@
+{{- if .Capabilities.APIVersions.Has "uds.dev/v1alpha1" }}
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: cert-manager
+  namespace: {{ .Release.Namespace }}
+spec:
+  network:
+    allow:
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+
+      - direction: Egress
+        remoteGenerated: IntraNamespace
+
+      - direction: Egress
+        podSelector:
+          app.kubernetes.io/name: cainjector
+        remoteGenerated: KubeAPI
+{{- end }}
