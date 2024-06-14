@@ -56,12 +56,3 @@ tasks:
   - name: publish-pkg
     actions:
       - task: publish:package
-
-  - name: registry-login
-    actions:
-      - task: common-setup:registry-login
-        with:
-          registry: ${REGISTRY}
-          registryUsername: ${REGISTRY_USERNAME}
-          registryPassword: ${REGISTRY_PASSWORD}
-          registryRetryInterval: ${REGISTRY_RETRY_INTERVAL}

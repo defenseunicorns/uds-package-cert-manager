@@ -2,4 +2,4 @@ tasks:
   - name: package
     description: "Remove pkg flavor of Cert-Manager"
     actions:
-      - cmd: zarf package remove zarf-package-*.zst --confirm
+      - cmd: uds zarf package remove zarf-package-*.zst --confirm --no-progress

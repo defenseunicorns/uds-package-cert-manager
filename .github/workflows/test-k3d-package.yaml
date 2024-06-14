@@ -24,11 +24,8 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
         with:
-          install-k3d: true
-          download-init-package: true
-
-      - name: Login to Registry1
-        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Setup Cluster
         run: uds run setup-cluster-no-istio
@@ -54,11 +51,8 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
         with:
-          install-k3d: true
-          download-init-package: true
-
-      - name: Login to Registry1
-        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Setup Cluster
         run: uds run setup-cluster-istio
