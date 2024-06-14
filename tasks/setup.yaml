@@ -7,7 +7,7 @@ tasks:
 
       - description: "Initialize the cluster with Zarf"
         # renovate: datasource=github-tags depName=defenseunicorns/init versioning=semver
-        cmd: uds zarf package deploy ghcr.io/defenseunicorns/packages/init:v0.34.0 --confirm --no-progress
+        cmd: uds zarf package deploy oci://ghcr.io/defenseunicorns/packages/init:v0.34.0 --confirm --no-progress
 
   - name: core-istio
     actions:
