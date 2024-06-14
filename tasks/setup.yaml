@@ -7,7 +7,7 @@ tasks:
 
       - description: "Initialize the cluster with Zarf"
         # renovate: datasource=github-tags depName=defenseunicorns/init versioning=semver
-        cmd: uds zarf init --confirm --components=git-server --no-progress
+        cmd: uds zarf init --components=git-server --no-progress
 
   - name: core-istio
     actions:
