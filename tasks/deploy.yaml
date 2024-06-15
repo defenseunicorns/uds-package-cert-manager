@@ -5,4 +5,4 @@ tasks:
       options:
         description: "For setting zarf vars"
     actions:
-      - cmd: zarf package deploy zarf-package-*.zst ${{ .inputs.options }} --confirm
+      - cmd: uds zarf package deploy zarf-package-*.zst ${{ .inputs.options }} --confirm --no-progress

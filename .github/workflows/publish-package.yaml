@@ -20,19 +20,14 @@ jobs:
         flavor: [upstream, registry1]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Setup Environment
         uses: ./.github/actions/setup
         with:
-          install-k3d: false
-          download-init-package: false
-
-      - name: Login to GHCR
-        run: uds run registry-login --set REGISTRY=ghcr.io --set REGISTRY_USERNAME=dummy --set REGISTRY_PASSWORD=${{ secrets.GITHUB_TOKEN }} --set REGISTRY_RETRY_INTERVAL=90
-
-      - name: Login to Registry1
-        run: uds run registry-login --set REGISTRY=registry1.dso.mil --set REGISTRY_USERNAME=${{ secrets.IRON_BANK_ROBOT_USERNAME }} --set REGISTRY_PASSWORD=${{ secrets.IRON_BANK_ROBOT_PASSWORD }} --set REGISTRY_RETRY_INTERVAL=90
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Package Flavor
         run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
@@ -41,6 +36,6 @@ jobs:
         run: uds run publish-pkg
 
       - name: Publish Zarf Skeleton
-        run: zarf package publish . oci://ghcr.io/defenseunicorns/packages
+        run: uds zarf package publish . oci://ghcr.io/defenseunicorns/packages
         working-directory: ${{ inputs.working_dir }}
         timeout-minutes: 60
