@@ -3,7 +3,7 @@
 "cert-manager is a powerful and extensible X.509 certificate controller for Kubernetes and OpenShift workloads. It will obtain certificates from a variety of Issuers, both popular public Issuers as well as private Issuers, and ensure the certificates are valid and up-to-date, and will attempt to renew certificates at a configured time before expiry." -- cert-manager.io
 
 > [!NOTE]  
-> Version `0.1.3` introduces the `uds-config` chart for deploying cert-manager with `UDS Core`. The chart will look for the existence of the `uds.dev/v1alpha1` in your cluster, and if found it will then deploy the cert-manager UDS Package custom reesource.
+> Version `0.1.3` introduces the `uds-config` chart for deploying cert-manager with `UDS Core`. The chart will look for the existence of the `Package` CRD from `uds.dev/v1alpha1` apiVersion in your cluster, and if found it will then deploy the cert-manager UDS Package custom resource.
 
 > [!WARNING]  
 > Support for DUBBD is deprecated and will be removed in release `0.2.0` (next planned release). All the functionality for overriding helm values or deploying custom manifests will be preserved.
