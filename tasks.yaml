@@ -4,7 +4,7 @@ includes:
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
   - remove: ./tasks/remove.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.1/tasks/publish.yaml
+  - publish: ./tasks/publish.yaml
 
 variables:
   - name: FLAVOR

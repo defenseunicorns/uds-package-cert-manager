@@ -28,16 +28,16 @@ jobs:
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Setup Cluster
-        run: uds run setup-cluster-no-istio
+        run: uds run setup-cluster-no-istio --no-progress
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml" --no-progress
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg
+        run: uds run remove-pkg --no-progress
 
   test-clean-install-with-istio:
     runs-on: ubuntu-latest
@@ -55,13 +55,13 @@ jobs:
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Setup Cluster
-        run: uds run setup-cluster-istio
+        run: uds run setup-cluster-istio --no-progress
 
       - name: Create Pkg Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true"
+        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests  --set CUSTOM_VALUES=./.github/ci-values/values-override.yaml --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml --set CONFIGURE_FOR_ISTIO=true" --no-progress
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg
+        run: uds run remove-pkg --no-progress
