@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.4](https://github.com/defenseunicorns/uds-package-cert-manager/compare/v0.1.3...v0.1.4) (2024-06-17)
+
+
+### Bug Fixes
+
+* typo in publish task ([#67](https://github.com/defenseunicorns/uds-package-cert-manager/issues/67)) ([4002117](https://github.com/defenseunicorns/uds-package-cert-manager/commit/4002117f11c4fab8f509b25d147a94badbcbf004))
+
+
+### Miscellaneous
+
+* **main:** release 0.1.3 ([#66](https://github.com/defenseunicorns/uds-package-cert-manager/issues/66)) ([1f9ed8d](https://github.com/defenseunicorns/uds-package-cert-manager/commit/1f9ed8d6a9f42ab8eb974da6ab69fab1676142c5))
+
 ## [0.1.3](https://github.com/defenseunicorns/uds-package-cert-manager/compare/v0.1.2...v0.1.3) (2024-06-17)
 
 
