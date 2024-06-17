@@ -11,4 +11,4 @@ variables:
 tasks:
   - name: package
     actions:
-      - cmd: uds zarf package publish zarf-package-cert-manager-*-${VERSION}.tar.zast oci://${TARGET_REPO}
+      - cmd: uds zarf package publish zarf-package-cert-manager-*-${VERSION}.tar.zst oci://${TARGET_REPO}
