@@ -12,7 +12,8 @@
       "versioning": "always-bump-patch",
       "extra-files": [
         "examples/uds-bundle.yaml",
-        "zarf.yaml"
+        "zarf.yaml",
+        "tasks/publish.yaml"
       ]
     }
   }
