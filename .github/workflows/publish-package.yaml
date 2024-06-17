@@ -30,12 +30,7 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Package Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Zarf Package Flavor
-        run: uds run publish-pkg
-
-      - name: Publish Zarf Skeleton
-        run: uds zarf package publish . oci://ghcr.io/defenseunicorns/packages
-        working-directory: ${{ inputs.working_dir }}
-        timeout-minutes: 60
+        run: uds run publish-pkg --no-progress

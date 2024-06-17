@@ -9,4 +9,4 @@ tasks:
       options:
         description: "For setting deploy time variables and flags"
     actions:
-      - cmd: uds zarf package create --flavor=${FLAVOR} --confirm ${{ .inputs.options }} --no-progress
+      - cmd: ZARF_ARCHITECTURE=amd64 uds zarf package create --flavor=${FLAVOR} --confirm ${{ .inputs.options }} --no-progress
