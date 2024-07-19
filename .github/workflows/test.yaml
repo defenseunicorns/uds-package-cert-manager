@@ -1,4 +1,4 @@
-name: Test k3d Package
+name: Test Package
 
 on:
   workflow_call:
@@ -8,11 +8,10 @@ on:
         type: string
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
-  test-clean-install-with-istio:
+  on-core:
     runs-on: ubuntu-latest
     strategy:
       matrix:

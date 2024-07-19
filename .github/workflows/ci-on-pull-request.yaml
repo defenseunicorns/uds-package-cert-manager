@@ -1,4 +1,4 @@
-name: CI k3d
+name: Pull Request
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
       - name: Lint YAML files
         run: yamllint . -c .yamllint --no-warnings
 
-  test-release:
+  test:
     needs: yaml-lint
     if: needs.yaml-lint.result == 'success' || needs.yaml-lint.result == 'skipped'
     uses: ./.github/workflows/test.yaml
