@@ -12,13 +12,12 @@ components:
     charts:
       - name: uds-config
         namespace: cert-manager
-        localPath: charts/uds-config
+        localPath: ../charts/uds-config
         version: 0.1.0
       - name: cert-manager
         url: https://charts.jetstack.io
         version: v1.15.0
         gitPath: jetstack/cert-manager
         namespace: cert-manager
-        releaseName: cert-manager
         valuesFiles:
-          - values/values.yaml
+          - ../values/values.yaml

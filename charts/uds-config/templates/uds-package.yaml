@@ -2,7 +2,7 @@ apiVersion: uds.dev/v1alpha1
 kind: Package
 metadata:
   name: cert-manager
-  namespace: { { .Release.Namespace } }
+  namespace: cert-manager
 spec:
   network:
     allow:

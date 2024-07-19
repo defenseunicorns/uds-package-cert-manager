@@ -30,7 +30,7 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Package Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }} --no-progress
+        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
 
       - name: Publish Zarf Package Flavor
-        run: uds run publish-pkg --no-progress
+        run: uds run publish-pkg

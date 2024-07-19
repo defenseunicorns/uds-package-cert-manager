@@ -8,30 +8,16 @@ includes:
 
 variables:
   - name: FLAVOR
-  - name: CUSTOM_VALUES
   - name: CUSTOM_MANIFESTS
-  - name: CONFIGURE_FOR_ISTIO
 
 tasks:
   - name: default
     actions:
       - task: create:package
-      - task: setup:k3d-no-istio
-      - task: deploy:package
-        with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
-
-  - name: test-with-istio
-    actions:
-      - task: create:package
       - task: setup:core-istio
       - task: deploy:package
         with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml --set configure_for_istio=true"
-
-  - name: setup-cluster-no-istio
-    actions:
-      - task: setup:k3d-no-istio
+          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml"
 
   - name: setup-cluster-istio
     actions:

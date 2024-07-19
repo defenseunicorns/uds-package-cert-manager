@@ -1,8 +1,0 @@
-package:
-  create:
-    max_package_size: "1000000000"
-  deploy:
-    set:
-      custom_values: deploy-cert-manager-values.yaml
-      custom_manifests: deploy-custom-cert-manager-manifests.yaml
-      configure_for_istio: "false"
