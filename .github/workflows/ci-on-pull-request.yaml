@@ -25,7 +25,7 @@ jobs:
   test-release:
     needs: yaml-lint
     if: needs.yaml-lint.result == 'success' || needs.yaml-lint.result == 'skipped'
-    uses: ./.github/workflows/test-k3d-package.yaml
+    uses: ./.github/workflows/test.yaml
     with:
       working_dir: .
     secrets: inherit

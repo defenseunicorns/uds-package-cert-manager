@@ -8,7 +8,17 @@ variables:
     default: "0.1.3"
     # x-release-please-end
 
+  - name: FLAVOR
+    default: upstream
+
 tasks:
   - name: package
     actions:
-      - cmd: uds zarf package publish zarf-package-cert-manager-*-${VERSION}.tar.zst oci://${TARGET_REPO}
+      - cmd: |
+          echo "Publishing package to ${TARGET_REPO}"
+           uds zarf package publish zarf-package-cert-manager-amd64-${VERSION}.tar.zst oci://${TARGET_REPO}
+
+          # dont publish arm64 for registry1 since IB images are only amd64
+          if [ "${FLAVOR}" != "registry1" ]; then
+            uds zarf package publish zarf-package-cert-manager-arm64-${VERSION}.tar.zst oci://${TARGET_REPO}
+          fi

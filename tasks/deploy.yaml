@@ -5,4 +5,4 @@ tasks:
       options:
         description: "For setting zarf vars"
     actions:
-      - cmd: uds zarf package deploy zarf-package-*.zst ${{ .inputs.options }} --confirm --no-progress
+      - cmd: uds zarf package deploy zarf-package-cert-manager-amd64-*.zst ${{ .inputs.options }} --confirm
