@@ -33,7 +33,7 @@ Prerequisites:
 
 ### Do It All
 
-- Setup Cluster, Create Package, and Deploy Package -- `uds run` or `uds run default`
+- Setup Cluster, Create Package, and Deploy Package -- `uds run --set flavor=<flavor>` or `uds run default --set flavor=<flavor>`
 
 ### Do Each Step
 
