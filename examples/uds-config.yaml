@@ -1,10 +1,4 @@
-bundle:
-  deploy:
-    zarf-packages:
-      dubbd-k3d:
-        set:
-          domain: bigbang.dev
-          approved_registries: "127.0.0.1* | registry1.dso.mil | ghcr.io"
-      cert-manager:
-        set:
-          custom_manifests: deploy-custom-manifests.yaml
+variables:
+  cert-manager:
+    CERT_SRVC_MON: false
+    custom_manifests: ./deploy-custom-manifests.yaml

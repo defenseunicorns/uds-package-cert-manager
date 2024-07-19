@@ -1,5 +1,4 @@
 includes:
-  - setup: ./tasks/setup.yaml
   - common-setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.1/tasks/setup.yaml
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
@@ -8,51 +7,28 @@ includes:
 
 variables:
   - name: FLAVOR
-  - name: CUSTOM_VALUES
   - name: CUSTOM_MANIFESTS
-  - name: CONFIGURE_FOR_ISTIO
 
 tasks:
   - name: default
+    description: "default task: setup cluster, create package (default flavor=upstream), deploy package with custom manifiests example"
     actions:
       - task: create:package
-      - task: setup:k3d-no-istio
+      - task: common-setup:k3d-test-cluster
       - task: deploy:package
         with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml"
-
-  - name: test-with-istio
-    actions:
-      - task: create:package
-      - task: setup:core-istio
-      - task: deploy:package
-        with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml --set custom_values=.github/ci-values/values-override.yaml --set configure_for_istio=true"
-
-  - name: setup-cluster-no-istio
-    actions:
-      - task: setup:k3d-no-istio
-
-  - name: setup-cluster-istio
-    actions:
-      - task: setup:core-istio
+          options: "--components=deploy-custom-manifests --set custom_manifests=./examples/deploy-custom-manifests.yaml"
 
   - name: create-pkg
+    description: "create:package entrypoint"
     actions:
       - task: create:package
         with:
           options: ${CREATE_OPTIONS}
 
   - name: deploy-pkg
+    description: "deploy:package entrypoint"
     actions:
       - task: deploy:package
         with:
           options: ${DEPLOY_OPTIONS}
-
-  - name: remove-pkg
-    actions:
-      - task: remove:package
-
-  - name: publish-pkg
-    actions:
-      - task: publish:package

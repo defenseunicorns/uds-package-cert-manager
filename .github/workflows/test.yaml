@@ -1,6 +1,5 @@
-name: Publish
+name: Test Package
 
-# Will remove before merge and make it only tags
 on:
   workflow_call:
     inputs:
@@ -10,10 +9,9 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
-  publish-package:
+  on-core:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,24 +25,15 @@ jobs:
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          ghToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Package Flavor
-        run: |
-          ZARF_ARCHITECTURE=amd64  uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
-          ZARF_ARCHITECTURE=arm64  uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
+      - name: Setup Cluster, Create Package, Deploy Package
+        run: uds run default --set flavor=${{ matrix.flavor }}
 
-      - name: Setup Cluster
-        run: uds run common-setup:k3d-test-cluster
-
-      - name: Deploy amd64 pkg
-        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
-
-      - name: Publish Zarf Package Flavor
-        run: uds run publish:package
+      - name: Remove Package from k3d cluster
+        run: uds run remove:package
 
       - name: Save logs
         if: always()
         uses: defenseunicorns/uds-common/.github/actions/save-logs@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
         with:
-          suffix: publish
+          suffix: test-${{ matrix.flavor }}
