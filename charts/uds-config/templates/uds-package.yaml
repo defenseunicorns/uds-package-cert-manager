@@ -13,6 +13,11 @@ spec:
         remoteGenerated: IntraNamespace
 
       - direction: Egress
-        podSelector:
+        selector:
+          app.kubernetes.io/name: webhook
+        remoteGenerated: KubeAPI
+
+      - direction: Egress
+        selector:
           app.kubernetes.io/name: cainjector
         remoteGenerated: KubeAPI
