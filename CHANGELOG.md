@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.0](https://github.com/defenseunicorns/uds-package-cert-manager/compare/v0.1.3...v0.2.0) (2024-07-19)
+
+
+### Features
+
+* remove dubbd setup ([#70](https://github.com/defenseunicorns/uds-package-cert-manager/issues/70)) ([3e292cf](https://github.com/defenseunicorns/uds-package-cert-manager/commit/3e292cf331fda64ea1016b0e4c5fee7481f04554))
+
+
+### Bug Fixes
+
+* typo in publish task ([#67](https://github.com/defenseunicorns/uds-package-cert-manager/issues/67)) ([4002117](https://github.com/defenseunicorns/uds-package-cert-manager/commit/4002117f11c4fab8f509b25d147a94badbcbf004))
+
+
+### Miscellaneous
+
+* add issue / pr templates ([#71](https://github.com/defenseunicorns/uds-package-cert-manager/issues/71)) ([adc09e2](https://github.com/defenseunicorns/uds-package-cert-manager/commit/adc09e2deee16ccafca78e6a8d1c7b06d59b2d03))
+* **main:** release 0.1.3 ([#66](https://github.com/defenseunicorns/uds-package-cert-manager/issues/66)) ([1f9ed8d](https://github.com/defenseunicorns/uds-package-cert-manager/commit/1f9ed8d6a9f42ab8eb974da6ab69fab1676142c5))
+* update ref for release please action ([#73](https://github.com/defenseunicorns/uds-package-cert-manager/issues/73)) ([b9ad6bc](https://github.com/defenseunicorns/uds-package-cert-manager/commit/b9ad6bc4dc6708c9a8bce75c089721bbc73cbf1d))
+* update release please config ([#74](https://github.com/defenseunicorns/uds-package-cert-manager/issues/74)) ([85de405](https://github.com/defenseunicorns/uds-package-cert-manager/commit/85de405250eb413da379e04380ee552e90b092eb))
+
 ## [0.1.3](https://github.com/defenseunicorns/uds-package-cert-manager/compare/v0.1.2...v0.1.3) (2024-06-17)
 
 
