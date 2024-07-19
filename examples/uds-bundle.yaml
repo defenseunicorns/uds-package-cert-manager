@@ -1,20 +1,26 @@
 kind: UDSBundle
 metadata:
-  name: CERT_MANAGER_FOR_DUBBD_K3D
-  description: Building DUBBD with Cert-Manager for local k3d
-  version: 0.0.1
+  name: uds-cert-manager
+  version: "0.1.0"
 
 packages:
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.32.1
-    optional-components:
-      - git-server
-  - name: dubbd-k3d
-    repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
-    ref: "0.16.0"
+    ref: v0.35.0
+
+  - name: core
+    repository: ghcr.io/defenseunicorns/packages/uds/core
+    ref: 0.24.0-upstream
+
   - name: cert-manager
-    repository: ghcr.io/defenseunicorns/packages/cert-manager
-    ref: "0.1.0"
-    optional-components:
+    repository: ghcr.io/defenseunicorns/packages/uds/cert-manager
+    ref: 0.1.3-upstream
+    optionalComponents:
       - deploy-custom-manifests
+    overrides:
+      deploy-chart:
+        cert-manager:
+          variables:
+            - path: prometheus.servicemonitor.enabled
+              name: CERT_SRVC_MON
+              description: "toggle off service monitor for cert-manager"

@@ -1,16 +1,3 @@
-installCRDs: true
-
-# delete secret if certificate is deleted
-extraArgs:
-  - --enable-certificate-owner-ref=true
-
-securityContext:
-  runAsNonRoot: true
-
-prometheus:
-  servicemonitor:
-    enabled: true
-
 startupapicheck:
   podLabels:
     sidecar.istio.io/inject: "false"

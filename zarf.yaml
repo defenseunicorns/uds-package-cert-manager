@@ -7,70 +7,22 @@ metadata:
   url: https://github.com/cert-manager/cert-manager
 
 variables:
-  - name: CUSTOM_VALUES
-    description: "Path to a local values file that includes configuration to be used at deploy time (does not support modifying images)"
-    default: deploy-cert-manager-values.yaml
-    prompt: false
-    type: file
-    autoIndent: true
   - name: CUSTOM_MANIFESTS
     description: "Path to a local manifest file for deploying custom cert-manager Issuers and Certificates"
     default: deploy-custom-cert-manager-manifests.yaml
     prompt: false
     type: file
     autoIndent: true
-  - name: CONFIGURE_FOR_ISTIO
-    prompt: false
-    default: "false"
 
 components:
-  - name: istio-configuration
-    required: true
-    charts:
-      - name: istio-config
-        version: 0.1.0
-        localPath: charts/istio-config
-        namespace: cert-manager
-        valuesFiles:
-          - charts/istio-config/values.yaml
-    actions:
-      onDeploy:
-        before:
-          - cmd: |
-              ./zarf tools kubectl label ns -l app.kubernetes.io/part-of=uds-package-cert-manager zarf.dev/agent-
-            description: "Remove Zarf ignore namespace labels before deploying"
-
-  - name: set-values
-    required: true
-    files:
-      - source: deploy-cert-manager-values.yaml
-        target: deploy-cert-manager-values.yaml
-    actions:
-      onDeploy:
-        after:
-          - cmd: "cat ${ZARF_VAR_CUSTOM_VALUES}"
-            description: "Read deploy-cert-manager-values.yaml file into values"
-            mute: true
-            setVariables:
-              - name: CUSTOM_VALUES
-                sensitive: true
-                autoIndent: true
-
   - name: deploy-chart
     required: true
     only:
       flavor: registry1
+    import:
+      path: common
     charts:
-      - name: uds-config
-        namespace: cert-manager
-        localPath: charts/uds-config
-        version: 0.1.0
       - name: cert-manager
-        url: https://charts.jetstack.io
-        version: v1.15.0
-        gitPath: jetstack/cert-manager
-        namespace: cert-manager
-        releaseName: cert-manager
         valuesFiles:
           - values/registry1-values.yaml
             # user given values file goes last so helm gives it precedence over defaults
@@ -85,17 +37,10 @@ components:
     required: true
     only:
       flavor: upstream
+    import:
+      path: common
     charts:
-      - name: uds-config
-        namespace: cert-manager
-        localPath: charts/uds-config
-        version: 0.1.0
       - name: cert-manager
-        url: https://charts.jetstack.io
-        version: v1.15.0
-        gitPath: jetstack/cert-manager
-        namespace: cert-manager
-        releaseName: cert-manager
         valuesFiles:
           - values/upstream-values.yaml
             # user given values file goes last so helm gives it precedence over defaults

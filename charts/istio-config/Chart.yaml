@@ -1,5 +1,0 @@
-apiVersion: v2
-name: istio-config
-description: A sub chart for configuring cert-manager to work with istio.
-type: application
-version: 0.1.0
