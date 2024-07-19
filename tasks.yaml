@@ -1,5 +1,4 @@
 includes:
-  - setup: ./tasks/setup.yaml
   - common-setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.1/tasks/setup.yaml
   - create: ./tasks/create.yaml
   - deploy: ./tasks/deploy.yaml
@@ -12,20 +11,23 @@ variables:
 
 tasks:
   - name: default
+    description: "default task: setup cluster, create package (default flavor=upstream), deploy package with custom manifiests example"
     actions:
       - task: create:package
-      - task: setup:core-slim-dev
+      - task: common-setup:k3d-test-cluster
       - task: deploy:package
         with:
           options: "--components=deploy-custom-manifests --set custom_manifests=./examples/deploy-custom-manifests.yaml"
 
   - name: create-pkg
+    description: "create:package entrypoint"
     actions:
       - task: create:package
         with:
           options: ${CREATE_OPTIONS}
 
   - name: deploy-pkg
+    description: "deploy:package entrypoint"
     actions:
       - task: deploy:package
         with:

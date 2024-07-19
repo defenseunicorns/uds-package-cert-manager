@@ -1,6 +1,0 @@
-tasks:
-  - name: core-slim-dev
-    actions:
-      - description: "Deploy uds istio core bundle"
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-core versioning=semver
-        cmd: uds deploy ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core-slim-dev:0.24.0 --confirm

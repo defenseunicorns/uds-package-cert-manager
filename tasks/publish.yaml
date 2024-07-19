@@ -13,6 +13,7 @@ variables:
 
 tasks:
   - name: package
+    description: "publish cert-manager package"
     actions:
       - cmd: |
           echo "Publishing package to ${TARGET_REPO}"

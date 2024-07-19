@@ -3,7 +3,7 @@
 "cert-manager is a powerful and extensible X.509 certificate controller for Kubernetes and OpenShift workloads. It will obtain certificates from a variety of Issuers, both popular public Issuers as well as private Issuers, and ensure the certificates are valid and up-to-date, and will attempt to renew certificates at a configured time before expiry." -- cert-manager.io
 
 > [!WARNING]  
-> Support for DUBBD has been deprecated as of release `0.2.0`. All the functionality for overriding helm values or deploying custom manifests has been preserved.
+> Support for DUBBD has been deprecated as of release `0.2.0`. All functionality for overriding helm values or deploying custom manifests has been preserved.
 
 ### Installed Resources
 
@@ -26,7 +26,10 @@ This package can be built as either an `upstream` or `registry1` flavor. These f
 
 ## Quick Start
 
-From within the repo:
+Prerequisites:
+
+1. k3d installed locally
+1. [uds binary installed](https://uds.defenseunicorns.com/cli/quickstart-and-usage/#install)
 
 ### Do It All
 
@@ -41,6 +44,23 @@ From within the repo:
   - without custom manifests -- `uds run deploy-pkg`
 
   - with custom manifests -- `uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests --set custom_manifests=<manifests>"`
+
+## Available UDS Tasks
+
+From `uds run --list-all`
+| TASK | Description |
+|------ | ----------- |
+| default | default task: setup cluster, create package (default flavor=upstream), deploy package with custom manifiests example |
+| create-pkg | create:package entrypoint |
+| deploy-pkg | deploy:package entrypoint |
+| common-setup:k3d-test-cluster | |
+| common-setup:k3d-full-cluster | |
+| common-setup:print-keycloak-admin-password | |
+| common-setup:create-doug-user | |
+| create:package | Create pkg flavor of Cert-Manager |
+| deploy:package | Deploy pkg flavor of Cert-Manager |
+| remove:package | Remove pkg flavor of Cert-Manager |
+| publish:package | publish cert-manager package |
 
 ## Controlling Values
 
