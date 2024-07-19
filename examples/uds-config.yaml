@@ -1,5 +1,4 @@
 variables:
   cert-manager:
     CERT_SRVC_MON: false
-    configure_for_istio: true
     custom_manifests: ./deploy-custom-manifests.yaml
