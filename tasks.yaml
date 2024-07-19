@@ -14,14 +14,10 @@ tasks:
   - name: default
     actions:
       - task: create:package
-      - task: setup:core-istio
+      - task: setup:core-slim-dev
       - task: deploy:package
         with:
-          options: "--components=deploy-custom-manifests --set custom_manifests=examples/deploy-custom-manifests.yaml"
-
-  - name: setup-cluster-istio
-    actions:
-      - task: setup:core-istio
+          options: "--components=deploy-custom-manifests --set custom_manifests=./examples/deploy-custom-manifests.yaml"
 
   - name: create-pkg
     actions:
@@ -34,11 +30,3 @@ tasks:
       - task: deploy:package
         with:
           options: ${DEPLOY_OPTIONS}
-
-  - name: remove-pkg
-    actions:
-      - task: remove:package
-
-  - name: publish-pkg
-    actions:
-      - task: publish:package

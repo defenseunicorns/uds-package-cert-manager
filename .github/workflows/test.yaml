@@ -27,14 +27,14 @@ jobs:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
-      - name: Setup Cluster
-        run: uds run setup-cluster-istio
-
-      - name: Create Pkg Flavor
-        run: uds run create-pkg --set FLAVOR=${{ matrix.flavor }}
-
-      - name: Deploy Pkg Flavor
-        run: uds run deploy-pkg --set deploy_options="--components=deploy-custom-manifests --set CUSTOM_MANIFESTS=./examples/deploy-custom-manifests.yaml"
+      - name: Setup Cluster, Create Package, Deploy Package
+        run: uds run default --set flavor=${{ matrix.flavor }}
 
       - name: Remove Package from k3d cluster
-        run: uds run remove-pkg
+        run: uds run remove:package
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
+        with:
+          suffix: test-${{ matrix.flavor }}
