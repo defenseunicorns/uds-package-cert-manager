@@ -12,7 +12,7 @@ components:
         version: 0.1.0
       - name: cert-manager
         url: https://charts.jetstack.io
-        version: v1.15.0
+        version: v1.15.2
         gitPath: jetstack/cert-manager
         namespace: cert-manager
         valuesFiles:

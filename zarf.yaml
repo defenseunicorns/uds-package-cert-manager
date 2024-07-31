@@ -28,10 +28,10 @@ components:
             # user given values file goes last so helm gives it precedence over defaults
           - values/deploy-cert-manager-values.yaml
     images:
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.15.0
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.15.0
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.15.0
-      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.14.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.15.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.15.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.15.2
+      - registry1.dso.mil/ironbank/jetstack/cert-manager-ctl:v1.14.7
 
   - name: deploy-chart
     required: true
@@ -46,10 +46,10 @@ components:
             # user given values file goes last so helm gives it precedence over defaults
           - values/deploy-cert-manager-values.yaml
     images:
-      - quay.io/jetstack/cert-manager-cainjector:v1.15.0
-      - quay.io/jetstack/cert-manager-webhook:v1.15.0
-      - quay.io/jetstack/cert-manager-controller:v1.15.0
-      - quay.io/jetstack/cert-manager-startupapicheck:v1.15.0
+      - quay.io/jetstack/cert-manager-cainjector:v1.15.2
+      - quay.io/jetstack/cert-manager-webhook:v1.15.2
+      - quay.io/jetstack/cert-manager-controller:v1.15.2
+      - quay.io/jetstack/cert-manager-startupapicheck:v1.15.2
 
   - name: deploy-custom-manifests
     manifests:
