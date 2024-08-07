@@ -16,7 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Use Node.js latest
-      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+      uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
       with:
         node-version: 20
 
@@ -30,7 +30,7 @@ runs:
     - name: Install UDS CLI
       shell: bash
       # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
-      run: brew install defenseunicorns/tap/uds@0.13.1
+      run: brew install defenseunicorns/tap/uds@0.14.0
 
     - name: Iron Bank Login
       if: ${{ inputs.registry1Username != '' }}
